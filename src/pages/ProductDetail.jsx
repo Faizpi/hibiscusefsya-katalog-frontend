@@ -24,18 +24,18 @@ function ProductDetail() {
       // Use dummy product for demo
       setProduct({
         id: 1,
-        name: 'Rose Elegance Bouquet',
-        slug: 'rose-elegance-bouquet',
-        description: 'Rangkaian mawar merah premium dengan sentuhan baby breath yang elegan. Cocok untuk hadiah romantis, anniversary, atau momen spesial lainnya. Bunga mawar pilihan dengan kualitas terbaik yang akan menyampaikan pesan cinta Anda dengan sempurna.\n\nTerdiri dari:\n- 12 tangkai mawar merah premium\n- Baby breath segar\n- Eucalyptus leaves\n- Wrapping premium\n- Pita satin\n\nCocok untuk:\n- Anniversary\n- Valentine\n- Ulang tahun\n- Proposing',
-        price: 350000,
-        price_formatted: 'Rp 350.000',
-        category_name: 'Bouquet',
-        category_slug: 'bouquet',
+        name: 'MBK Deodorant Roll On Pink (Women)',
+        slug: 'mbk-deodorant-roll-on-pink',
+        description: 'Deodorant roll on khusus wanita dengan warna pink yang feminin. Tahan lama hingga 24 jam, halal, dan aman untuk kulit sensitif. Efektif mencegah bau badan dan menjaga ketiak tetap kering.\n\nKeunggulan:\n- Tahan lama hingga 24 jam\n- Formula halal dan aman\n- Tidak meninggalkan noda di pakaian\n- Aroma lembut dan feminin\n- Cocok untuk kulit sensitif\n\nCara Pakai:\n- Oleskan pada ketiak yang bersih dan kering\n- Gunakan setelah mandi untuk hasil maksimal',
+        price: 15000,
+        price_formatted: 'Rp 15.000',
+        category_name: 'Deodorant Roll On',
+        category_slug: 'deodorant-roll-on',
         featured: true,
         image_url: null,
         related_products: [
-          { id: 2, name: 'Sunflower Joy', slug: 'sunflower-joy', price_formatted: 'Rp 275.000', image_url: null },
-          { id: 3, name: 'Lily White Dream', slug: 'lily-white-dream', price_formatted: 'Rp 400.000', image_url: null },
+          { id: 2, name: 'MBK Deodorant Roll On Purple', slug: 'mbk-deodorant-roll-on-purple', price_formatted: 'Rp 15.000', image_url: null },
+          { id: 3, name: 'MBK P.O. Powder Silver Sachet', slug: 'mbk-po-powder-silver-sachet', price_formatted: 'Rp 35.000', image_url: null },
         ]
       })
     } finally {

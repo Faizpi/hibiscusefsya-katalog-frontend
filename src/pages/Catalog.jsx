@@ -32,10 +32,11 @@ function Catalog() {
     } catch (err) {
       // Use dummy categories
       setCategories([
-        { id: 1, name: 'Bouquet', slug: 'bouquet', product_count: 3 },
-        { id: 2, name: 'Vas Bunga', slug: 'vas-bunga', product_count: 1 },
-        { id: 3, name: 'Dekorasi', slug: 'dekorasi', product_count: 1 },
-        { id: 4, name: 'Hampers', slug: 'hampers', product_count: 1 },
+        { id: 1, name: 'Deodorant Roll On', slug: 'deodorant-roll-on', product_count: 4 },
+        { id: 2, name: 'P.O. Powder', slug: 'po-powder', product_count: 4 },
+        { id: 3, name: 'Bedak Biang Keringat', slug: 'bedak-biang-keringat', product_count: 4 },
+        { id: 4, name: 'Body Mist', slug: 'body-mist', product_count: 1 },
+        { id: 5, name: 'Body Lotion', slug: 'body-lotion', product_count: 1 },
       ])
     }
   }
@@ -64,14 +65,14 @@ function Catalog() {
       setError('Gagal memuat produk')
       // Use dummy products
       setProducts([
-        { id: 1, name: 'Rose Elegance Bouquet', slug: 'rose-elegance-bouquet', price_formatted: 'Rp 350.000', category_name: 'Bouquet', featured: true, image_url: null },
-        { id: 2, name: 'Sunflower Joy', slug: 'sunflower-joy', price_formatted: 'Rp 275.000', category_name: 'Bouquet', image_url: null },
-        { id: 3, name: 'Lily White Dream', slug: 'lily-white-dream', price_formatted: 'Rp 400.000', category_name: 'Bouquet', image_url: null },
-        { id: 4, name: 'Classic Vas Arrangement', slug: 'classic-vas-arrangement', price_formatted: 'Rp 500.000', category_name: 'Vas Bunga', featured: true, image_url: null },
-        { id: 5, name: 'Wedding Decoration Set', slug: 'wedding-decoration-set', price_formatted: 'Rp 2.500.000', category_name: 'Dekorasi', image_url: null },
-        { id: 6, name: 'Flower Hampers Gift', slug: 'flower-hampers-gift', price_formatted: 'Rp 750.000', category_name: 'Hampers', featured: true, image_url: null },
+        { id: 1, name: 'MBK Deodorant Roll On Pink (Women)', slug: 'mbk-deodorant-roll-on-pink', price_formatted: 'Rp 15.000', category_name: 'Deodorant Roll On', featured: true, image_url: null },
+        { id: 2, name: 'MBK Deodorant Roll On Purple (Women)', slug: 'mbk-deodorant-roll-on-purple', price_formatted: 'Rp 15.000', category_name: 'Deodorant Roll On', image_url: null },
+        { id: 3, name: 'MBK Deodorant Roll On Black (Men)', slug: 'mbk-deodorant-roll-on-black', price_formatted: 'Rp 15.000', category_name: 'Deodorant Roll On', featured: true, image_url: null },
+        { id: 4, name: 'MBK P.O. Powder Silver Sachet', slug: 'mbk-po-powder-silver-sachet', price_formatted: 'Rp 35.000', category_name: 'P.O. Powder', featured: true, image_url: null },
+        { id: 5, name: 'MBK P.O. Powder Putih Tin', slug: 'mbk-po-powder-putih-tin', price_formatted: 'Rp 14.000', category_name: 'P.O. Powder', image_url: null },
+        { id: 6, name: 'MBK Bedak Biang Keringat Biru', slug: 'mbk-bedak-biang-keringat-biru', price_formatted: 'Rp 9.000', category_name: 'Bedak Biang Keringat', image_url: null },
       ])
-      setMeta({ total: 6, page: 1, limit: 12, total_pages: 1 })
+      setMeta({ total: 14, page: 1, limit: 12, total_pages: 2 })
     } finally {
       setLoading(false)
     }
@@ -117,7 +118,7 @@ function Catalog() {
             )}
           </div>
           <h1>{currentCategory ? currentCategory.name : 'Katalog Produk'}</h1>
-          <p>Temukan rangkaian bunga sempurna untuk setiap momen</p>
+          <p>Temukan produk perawatan tubuh M.B.K untuk kesegaran Anda</p>
         </div>
       </section>
 
