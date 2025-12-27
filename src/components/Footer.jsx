@@ -12,15 +12,15 @@ function Footer() {
           {/* Brand */}
           <div className="footer-brand">
             <Link to="/" className="footer-logo">
-              <span className="logo-icon">🌺</span>
+              <span className="logo-icon">🧴</span>
               <div className="logo-text">
                 <span className="logo-name">Hibiscus Efsya</span>
                 <span className="logo-tagline">part of M.B.K Indonesia</span>
               </div>
             </Link>
             <p className="footer-desc">
-              Menghadirkan keindahan bunga untuk setiap momen spesial Anda. 
-              Rangkaian bunga premium dengan sentuhan elegan.
+              Produk perawatan tubuh berkualitas dari M.B.K Indonesia. 
+              Deodorant dan bedak tabur untuk menjaga kesegaran sepanjang hari.
             </p>
             <div className="footer-social">
               <a href="#" className="social-link" aria-label="Instagram">
@@ -56,10 +56,10 @@ function Footer() {
           <div className="footer-links">
             <h4>Kategori</h4>
             <ul>
-              <li><Link to="/katalog/bouquet">Bouquet</Link></li>
-              <li><Link to="/katalog/vas-bunga">Vas Bunga</Link></li>
-              <li><Link to="/katalog/dekorasi">Dekorasi</Link></li>
-              <li><Link to="/katalog/hampers">Hampers</Link></li>
+              <li><Link to="/katalog/deodorant-roll-on">Deodorant Roll On</Link></li>
+              <li><Link to="/katalog/po-powder">P.O. Powder</Link></li>
+              <li><Link to="/katalog/bedak-biang-keringat">Bedak Biang Keringat</Link></li>
+              <li><Link to="/katalog/body-mist">Body Mist</Link></li>
             </ul>
           </div>
 

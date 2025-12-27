@@ -25,7 +25,7 @@ function Navbar() {
       <div className="container navbar-container">
         {/* Logo */}
         <Link to="/" className="navbar-logo">
-          <span className="logo-icon">🌺</span>
+          <span className="logo-icon">🧴</span>
           <div className="logo-text">
             <span className="logo-name">Hibiscus Efsya</span>
             <span className="logo-tagline">part of M.B.K Indonesia</span>

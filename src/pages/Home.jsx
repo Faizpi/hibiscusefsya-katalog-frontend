@@ -47,29 +47,30 @@ function Home() {
   // Dummy data for demo/development
   const getDummyData = () => ({
     featured_products: [
-      { id: 1, name: 'Rose Elegance Bouquet', slug: 'rose-elegance-bouquet', price_formatted: 'Rp 350.000', category_name: 'Bouquet', featured: true, image_url: null },
-      { id: 2, name: 'Sunflower Joy', slug: 'sunflower-joy', price_formatted: 'Rp 275.000', category_name: 'Bouquet', featured: true, image_url: null },
-      { id: 3, name: 'Classic Vas Arrangement', slug: 'classic-vas-arrangement', price_formatted: 'Rp 500.000', category_name: 'Vas Bunga', featured: true, image_url: null },
-      { id: 4, name: 'Flower Hampers Gift', slug: 'flower-hampers-gift', price_formatted: 'Rp 750.000', category_name: 'Hampers', featured: true, image_url: null },
+      { id: 1, name: 'MBK Deodorant Roll On Pink (Women)', slug: 'mbk-deodorant-roll-on-pink', price_formatted: 'Rp 15.000', category_name: 'Deodorant Roll On', featured: true, image_url: null },
+      { id: 2, name: 'MBK P.O. Powder Silver Sachet', slug: 'mbk-po-powder-silver-sachet', price_formatted: 'Rp 35.000', category_name: 'P.O. Powder', featured: true, image_url: null },
+      { id: 3, name: 'MBK Deodorant Roll On Black (Men)', slug: 'mbk-deodorant-roll-on-black', price_formatted: 'Rp 15.000', category_name: 'Deodorant Roll On', featured: true, image_url: null },
+      { id: 4, name: 'MBK P.O. Powder Putih Tin', slug: 'mbk-po-powder-putih-tin', price_formatted: 'Rp 14.000', category_name: 'P.O. Powder', featured: true, image_url: null },
     ],
     latest_products: [
-      { id: 1, name: 'Rose Elegance Bouquet', slug: 'rose-elegance-bouquet', price_formatted: 'Rp 350.000', category_name: 'Bouquet', image_url: null },
-      { id: 2, name: 'Sunflower Joy', slug: 'sunflower-joy', price_formatted: 'Rp 275.000', category_name: 'Bouquet', image_url: null },
-      { id: 3, name: 'Lily White Dream', slug: 'lily-white-dream', price_formatted: 'Rp 400.000', category_name: 'Bouquet', image_url: null },
-      { id: 4, name: 'Classic Vas Arrangement', slug: 'classic-vas-arrangement', price_formatted: 'Rp 500.000', category_name: 'Vas Bunga', image_url: null },
+      { id: 1, name: 'MBK Deodorant Roll On Pink (Women)', slug: 'mbk-deodorant-roll-on-pink', price_formatted: 'Rp 15.000', category_name: 'Deodorant Roll On', image_url: null },
+      { id: 2, name: 'MBK Deodorant Roll On Purple (Women)', slug: 'mbk-deodorant-roll-on-purple', price_formatted: 'Rp 15.000', category_name: 'Deodorant Roll On', image_url: null },
+      { id: 3, name: 'MBK P.O. Powder Silver Sachet', slug: 'mbk-po-powder-silver-sachet', price_formatted: 'Rp 35.000', category_name: 'P.O. Powder', image_url: null },
+      { id: 4, name: 'MBK Bedak Biang Keringat Biru', slug: 'mbk-bedak-biang-keringat-biru', price_formatted: 'Rp 9.000', category_name: 'Bedak Biang Keringat', image_url: null },
     ],
     categories: [
-      { id: 1, name: 'Bouquet', slug: 'bouquet', product_count: 3 },
-      { id: 2, name: 'Vas Bunga', slug: 'vas-bunga', product_count: 1 },
-      { id: 3, name: 'Dekorasi', slug: 'dekorasi', product_count: 1 },
-      { id: 4, name: 'Hampers', slug: 'hampers', product_count: 1 },
+      { id: 1, name: 'Deodorant Roll On', slug: 'deodorant-roll-on', product_count: 4 },
+      { id: 2, name: 'P.O. Powder', slug: 'po-powder', product_count: 4 },
+      { id: 3, name: 'Bedak Biang Keringat', slug: 'bedak-biang-keringat', product_count: 4 },
+      { id: 4, name: 'Body Mist', slug: 'body-mist', product_count: 1 },
+      { id: 5, name: 'Body Lotion', slug: 'body-lotion', product_count: 1 },
     ],
     inspirations: [
-      { id: 1, title: 'Tips Merawat Bunga Potong', slug: 'tips-merawat-bunga-potong', content: 'Bunga potong bisa bertahan lebih lama dengan perawatan yang tepat.' },
-      { id: 2, title: 'Makna Warna Bunga', slug: 'makna-warna-bunga', content: 'Setiap warna bunga memiliki makna tersendiri.' },
-      { id: 3, title: 'Inspirasi Dekorasi Rumah', slug: 'inspirasi-dekorasi-rumah', content: 'Hadirkan kesegaran dengan rangkaian bunga di sudut ruangan.' },
+      { id: 1, title: 'Tips Mengatasi Bau Badan', slug: 'tips-mengatasi-bau-badan', content: 'Gunakan deodorant secara teratur dan bedak tabur untuk menyerap keringat berlebih.' },
+      { id: 2, title: 'Manfaat Bedak Tabur untuk Tubuh', slug: 'manfaat-bedak-tabur', content: 'Bedak tabur membantu menjaga kulit tetap kering dan memberikan aroma harum.' },
+      { id: 3, title: 'Cara Memilih Deodorant yang Tepat', slug: 'cara-memilih-deodorant', content: 'Pilih deodorant yang sesuai dengan jenis kulit dan aktivitas Anda.' },
     ],
-    stats: { total_products: 6, total_categories: 4 }
+    stats: { total_products: 14, total_categories: 5 }
   })
 
   if (loading) {
@@ -91,20 +92,20 @@ function Home() {
         <div className="hero-bg"></div>
         <div className="container hero-container">
           <div className="hero-content">
-            <span className="hero-badge animate-fadeIn">🌺 Katalog Bunga Premium</span>
+            <span className="hero-badge animate-fadeIn">✨ Kosmetik & Perawatan Tubuh</span>
             <h1 className="hero-title">
               <LetterReveal text="Hibiscus Efsya" className="text-display" delay={0.05} />
             </h1>
             <div className="hero-marquee">
               <MarqueeText 
-                text="✦ part of M.B.K Indonesia ✦ Premium Flower Catalog ✦ Fresh & Beautiful ✦ Elegant Design " 
+                text="✦ part of M.B.K Indonesia ✦ Deodorant Roll On ✦ P.O. Powder ✦ Bedak Biang Keringat ✦ Halal & Berkualitas " 
                 speed={25}
                 className="hero-subtitle-marquee"
               />
             </div>
             <p className="hero-desc animate-fadeInUp">
               <WordReveal 
-                text="Menghadirkan keindahan bunga untuk setiap momen spesial Anda. Rangkaian bunga premium dengan sentuhan elegan dan penuh makna."
+                text="Produk perawatan tubuh berkualitas untuk menjaga kesegaran dan kebersihan Anda. Deodorant dan bedak tabur yang efektif mengatasi bau badan."
                 delay={0.03}
               />
             </p>
@@ -124,7 +125,7 @@ function Home() {
             <FloatingElement amplitude={15} duration={4}>
               <div className="hero-image-wrapper">
                 <div className="hero-image-placeholder pulse-subtle">
-                  <span>🌺</span>
+                  <span>🧴</span>
                 </div>
               </div>
             </FloatingElement>
@@ -148,13 +149,13 @@ function Home() {
         {/* Decorative floating elements */}
         <div className="hero-decorations">
           <FloatingElement amplitude={20} duration={5}>
-            <span className="deco-flower deco-1">🌸</span>
+            <span className="deco-flower deco-1">✨</span>
           </FloatingElement>
           <FloatingElement amplitude={15} duration={6}>
-            <span className="deco-flower deco-2">🌹</span>
+            <span className="deco-flower deco-2">💫</span>
           </FloatingElement>
           <FloatingElement amplitude={25} duration={4}>
-            <span className="deco-flower deco-3">🌷</span>
+            <span className="deco-flower deco-3">🌟</span>
           </FloatingElement>
         </div>
       </section>
@@ -163,8 +164,8 @@ function Home() {
       <section className="section categories-section" id="about" ref={categoriesRef}>
         <div className="container">
           <div className="section-header reveal-fade">
-            <h2><LetterReveal text="Koleksi Kami" delay={0.04} /></h2>
-            <p>Temukan berbagai pilihan rangkaian bunga untuk setiap momen</p>
+            <h2><LetterReveal text="Kategori Produk" delay={0.04} /></h2>
+            <p>Temukan berbagai produk perawatan tubuh untuk kesegaran Anda</p>
           </div>
           <div className="categories-grid">
             {data?.categories?.map((category, index) => (
@@ -176,10 +177,11 @@ function Home() {
               >
                 <FloatingElement amplitude={5} duration={3 + index * 0.5}>
                   <div className="category-icon">
-                    {category.slug === 'bouquet' && '💐'}
-                    {category.slug === 'vas-bunga' && '🏺'}
-                    {category.slug === 'dekorasi' && '🎀'}
-                    {category.slug === 'hampers' && '🎁'}
+                    {category.slug === 'deodorant-roll-on' && '🧴'}
+                    {category.slug === 'po-powder' && '✨'}
+                    {category.slug === 'bedak-biang-keringat' && '💫'}
+                    {category.slug === 'body-mist' && '🌸'}
+                    {category.slug === 'body-lotion' && '🧴'}
                   </div>
                 </FloatingElement>
                 <h3>{category.name}</h3>
@@ -217,10 +219,10 @@ function Home() {
         <div className="container">
           <div className="benefits-grid">
             {[
-              { icon: '✨', title: 'Kualitas Premium', desc: 'Bunga segar pilihan dengan kualitas terbaik' },
-              { icon: '🚚', title: 'Pengiriman Cepat', desc: 'Dikirim dengan aman dan tepat waktu' },
-              { icon: '🎨', title: 'Desain Eksklusif', desc: 'Rangkaian unik dengan sentuhan artistik' },
-              { icon: '💝', title: 'Penuh Makna', desc: 'Setiap rangkaian penuh pesan dan cinta' }
+              { icon: '✅', title: 'Halal & Aman', desc: 'Produk bersertifikat halal MUI dan aman untuk kulit' },
+              { icon: '💪', title: 'Tahan Lama', desc: 'Perlindungan hingga 24 jam dari bau badan' },
+              { icon: '🌿', title: 'Bahan Berkualitas', desc: 'Terbuat dari tawas, talc, dan parfum pilihan' },
+              { icon: '💰', title: 'Harga Terjangkau', desc: 'Kualitas premium dengan harga ekonomis' }
             ].map((benefit, index) => (
               <div 
                 key={index} 
@@ -271,8 +273,8 @@ function Home() {
       <section className="section cta-section" ref={ctaRef}>
         <div className="container">
           <div className="cta-content reveal-fade">
-            <h2><LetterReveal text="Siap Menemukan Bunga Sempurna?" delay={0.03} /></h2>
-            <p>Jelajahi koleksi lengkap kami dan temukan rangkaian yang tepat untuk momen spesial Anda</p>
+            <h2><LetterReveal text="Siap Tampil Segar Sepanjang Hari?" delay={0.03} /></h2>
+            <p>Jelajahi koleksi lengkap produk M.B.K dan temukan solusi perawatan tubuh yang tepat untuk Anda</p>
             <Link to="/katalog" className="btn btn-primary btn-lg shine ripple">
               Mulai Jelajahi
             </Link>
