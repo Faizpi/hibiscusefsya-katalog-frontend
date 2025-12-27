@@ -40,7 +40,15 @@ function Home() {
       { id: 2, title: 'Manfaat Bedak Tabur untuk Tubuh', slug: 'manfaat-bedak-tabur', content: 'Bedak tabur membantu menjaga kulit tetap kering dan memberikan aroma harum.' },
       { id: 3, title: 'Cara Memilih Deodorant yang Tepat', slug: 'cara-memilih-deodorant', content: 'Pilih deodorant yang sesuai dengan jenis kulit dan aktivitas Anda.' },
     ],
-    stats: { total_products: 14, total_categories: 5 }
+    stats: { total_products: 14, total_categories: 5 },
+    settings: {
+      site_name: 'Hibiscus Efsya',
+      site_tagline: 'Part of M.B.K Indonesia',
+      hero_subtitle: '✦ part of M.B.K Indonesia ✦ Deodorant Roll On ✦ P.O. Powder ✦ Bedak Biang Keringat ✦ Halal & Berkualitas',
+      hero_description: 'Produk perawatan tubuh berkualitas untuk menjaga kesegaran dan kebersihan Anda. Deodorant dan bedak tabur yang efektif mengatasi bau badan.',
+      about_title: 'Tentang Kami',
+      about_content: 'M.B.K Indonesia adalah produsen produk kosmetik perawatan tubuh yang telah dipercaya masyarakat Indonesia.'
+    }
   })
 
   const [data, setData] = useState(getDummyData())
@@ -52,6 +60,7 @@ function Home() {
   const categoriesRef = useScrollReveal({ threshold: 0.2 })
   const featuredRef = useScrollReveal({ threshold: 0.1 })
   const benefitsRef = useScrollReveal({ threshold: 0.2 })
+  const aboutRef = useScrollReveal({ threshold: 0.2 })
   const inspirationRef = useScrollReveal({ threshold: 0.2 })
   const ctaRef = useScrollReveal({ threshold: 0.3 })
 
@@ -83,18 +92,18 @@ function Home() {
           <div className="hero-content">
             <span className="hero-badge animate-fadeIn">✨ Kosmetik & Perawatan Tubuh</span>
             <h1 className="hero-title">
-              <LetterReveal text="Hibiscus Efsya" className="text-display" delay={50} />
+              <LetterReveal text={data?.settings?.site_name || "Hibiscus Efsya"} className="text-display" delay={50} />
             </h1>
             <div className="hero-marquee">
               <MarqueeText 
-                text="✦ part of M.B.K Indonesia ✦ Deodorant Roll On ✦ P.O. Powder ✦ Bedak Biang Keringat ✦ Halal & Berkualitas " 
+                text={data?.settings?.hero_subtitle || "✦ part of M.B.K Indonesia ✦ Deodorant Roll On ✦ P.O. Powder ✦ Bedak Biang Keringat ✦ Halal & Berkualitas "} 
                 speed={25}
                 className="hero-subtitle-marquee"
               />
             </div>
             <p className="hero-desc animate-fadeInUp">
               <WordReveal 
-                text="Produk perawatan tubuh berkualitas untuk menjaga kesegaran dan kebersihan Anda. Deodorant dan bedak tabur yang efektif mengatasi bau badan."
+                text={data?.settings?.hero_description || "Produk perawatan tubuh berkualitas untuk menjaga kesegaran dan kebersihan Anda. Deodorant dan bedak tabur yang efektif mengatasi bau badan."}
                 delay={80}
               />
             </p>
@@ -257,6 +266,37 @@ function Home() {
           </div>
         </section>
       )}
+
+      {/* About Section */}
+      <section className="section about-section" id="about" ref={aboutRef}>
+        <div className="container">
+          <div className="about-content reveal-fade">
+            <div className="about-text">
+              <h2><LetterReveal text={data?.settings?.about_title || "Tentang Kami"} delay={40} /></h2>
+              <p className="about-desc">
+                <WordReveal 
+                  text={data?.settings?.about_content || "M.B.K Indonesia adalah produsen produk kosmetik perawatan tubuh yang telah dipercaya masyarakat Indonesia."}
+                  delay={50}
+                />
+              </p>
+            </div>
+            <div className="about-features">
+              <div className="about-feature">
+                <span className="feature-icon">🏭</span>
+                <span>Produksi Indonesia</span>
+              </div>
+              <div className="about-feature">
+                <span className="feature-icon">✅</span>
+                <span>Bersertifikat Halal</span>
+              </div>
+              <div className="about-feature">
+                <span className="feature-icon">🛡️</span>
+                <span>BPOM Approved</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CTA Section */}
       <section className="section cta-section" ref={ctaRef}>
