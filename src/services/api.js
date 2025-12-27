@@ -1,6 +1,17 @@
 import axios from 'axios';
 import { API_ENDPOINTS } from '../config/api';
 
+// Get settings data (for hero, about, contact, social)
+export const getSettings = async () => {
+  try {
+    const response = await axios.get(API_ENDPOINTS.settings);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching settings:', error);
+    throw error;
+  }
+};
+
 // Get homepage data
 export const getHomepageData = async () => {
   try {
