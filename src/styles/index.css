@@ -4,19 +4,19 @@
 
 :root {
   /* Brand Colors - Red & White Theme */
-  --primary: #C41E3A;
-  --primary-dark: #A01830;
-  --primary-light: #E85A6B;
-  --secondary: #8B1E3A;
-  --accent: #FF4D6A;
+  --primary: #DC2626;
+  --primary-dark: #B91C1C;
+  --primary-light: #EF4444;
+  --secondary: #991B1B;
+  --accent: #F87171;
   
   /* Neutral Colors */
   --dark: #1A1A1A;
   --dark-soft: #2D2D2D;
   --gray: #6B6B6B;
   --gray-light: #9B9B9B;
-  --light: #FFF5F5;
-  --light-soft: #FFECEC;
+  --light: #FFFFFF;
+  --light-soft: #FAFAFA;
   --white: #FFFFFF;
   
   /* Semantic Colors */

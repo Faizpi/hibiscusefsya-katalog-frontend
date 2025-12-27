@@ -14,36 +14,6 @@ import { useScrollReveal } from '../hooks/useScrollReveal.jsx'
 import './Home.css'
 
 function Home() {
-  const [data, setData] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  
-  // Scroll reveal refs
-  const heroRef = useScrollReveal()
-  const categoriesRef = useScrollReveal({ threshold: 0.2 })
-  const featuredRef = useScrollReveal({ threshold: 0.1 })
-  const benefitsRef = useScrollReveal({ threshold: 0.2 })
-  const inspirationRef = useScrollReveal({ threshold: 0.2 })
-  const ctaRef = useScrollReveal({ threshold: 0.3 })
-
-  useEffect(() => {
-    fetchData()
-  }, [])
-
-  const fetchData = async () => {
-    try {
-      setLoading(true)
-      const response = await getHomepageData()
-      setData(response.data)
-    } catch (err) {
-      setError('Gagal memuat data')
-      // Use dummy data for demo
-      setData(getDummyData())
-    } finally {
-      setLoading(false)
-    }
-  }
-
   // Dummy data for demo/development
   const getDummyData = () => ({
     featured_products: [
@@ -73,13 +43,32 @@ function Home() {
     stats: { total_products: 14, total_categories: 5 }
   })
 
-  if (loading) {
-    return (
-      <div className="loading">
-        <div className="loading-spinner"></div>
-        <p>Memuat...</p>
-      </div>
-    )
+  const [data, setData] = useState(getDummyData())
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  
+  // Scroll reveal refs
+  const heroRef = useScrollReveal()
+  const categoriesRef = useScrollReveal({ threshold: 0.2 })
+  const featuredRef = useScrollReveal({ threshold: 0.1 })
+  const benefitsRef = useScrollReveal({ threshold: 0.2 })
+  const inspirationRef = useScrollReveal({ threshold: 0.2 })
+  const ctaRef = useScrollReveal({ threshold: 0.3 })
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  const fetchData = async () => {
+    try {
+      const response = await getHomepageData()
+      if (response && response.data) {
+        setData(response.data)
+      }
+    } catch (err) {
+      console.log('Using dummy data due to API error')
+      // Keep using dummy data already set
+    }
   }
 
   return (
@@ -94,7 +83,7 @@ function Home() {
           <div className="hero-content">
             <span className="hero-badge animate-fadeIn">✨ Kosmetik & Perawatan Tubuh</span>
             <h1 className="hero-title">
-              <LetterReveal text="Hibiscus Efsya" className="text-display" delay={0.05} />
+              <LetterReveal text="Hibiscus Efsya" className="text-display" delay={50} />
             </h1>
             <div className="hero-marquee">
               <MarqueeText 
@@ -106,7 +95,7 @@ function Home() {
             <p className="hero-desc animate-fadeInUp">
               <WordReveal 
                 text="Produk perawatan tubuh berkualitas untuk menjaga kesegaran dan kebersihan Anda. Deodorant dan bedak tabur yang efektif mengatasi bau badan."
-                delay={0.03}
+                delay={80}
               />
             </p>
             <div className="hero-actions animate-fadeInUp" style={{ animationDelay: '0.5s' }}>
@@ -132,13 +121,13 @@ function Home() {
             <div className="hero-stats animate-scaleIn" style={{ animationDelay: '0.8s' }}>
               <div className="stat-item">
                 <span className="stat-number">
-                  <AnimatedCounter end={data?.stats?.total_products || 6} duration={2000} />+
+                  <AnimatedCounter target={data?.stats?.total_products || 14} duration={2000} />+
                 </span>
                 <span className="stat-label">Produk</span>
               </div>
               <div className="stat-item">
                 <span className="stat-number">
-                  <AnimatedCounter end={data?.stats?.total_categories || 4} duration={1500} />
+                  <AnimatedCounter target={data?.stats?.total_categories || 5} duration={1500} />
                 </span>
                 <span className="stat-label">Kategori</span>
               </div>
@@ -164,7 +153,7 @@ function Home() {
       <section className="section categories-section" id="about" ref={categoriesRef}>
         <div className="container">
           <div className="section-header reveal-fade">
-            <h2><LetterReveal text="Kategori Produk" delay={0.04} /></h2>
+            <h2><LetterReveal text="Kategori Produk" delay={40} /></h2>
             <p>Temukan berbagai produk perawatan tubuh untuk kesegaran Anda</p>
           </div>
           <div className="categories-grid">
@@ -196,7 +185,7 @@ function Home() {
       <section className="section featured-section" id="featured" ref={featuredRef}>
         <div className="container">
           <div className="section-header reveal-fade">
-            <h2><LetterReveal text="Produk Unggulan" delay={0.04} /></h2>
+            <h2><LetterReveal text="Produk Unggulan" delay={40} /></h2>
             <p>Pilihan terbaik yang paling diminati</p>
           </div>
           <div className="products-grid">
@@ -245,7 +234,7 @@ function Home() {
         <section className="section inspiration-section" ref={inspirationRef}>
           <div className="container">
             <div className="section-header reveal-fade">
-              <h2><LetterReveal text="Inspirasi" delay={0.05} /></h2>
+              <h2><LetterReveal text="Inspirasi" delay={50} /></h2>
               <p>Tips dan ide untuk Anda</p>
             </div>
             <div className="inspiration-grid">
@@ -273,7 +262,7 @@ function Home() {
       <section className="section cta-section" ref={ctaRef}>
         <div className="container">
           <div className="cta-content reveal-fade">
-            <h2><LetterReveal text="Siap Tampil Segar Sepanjang Hari?" delay={0.03} /></h2>
+            <h2><LetterReveal text="Siap Tampil Segar Sepanjang Hari?" delay={30} /></h2>
             <p>Jelajahi koleksi lengkap produk M.B.K dan temukan solusi perawatan tubuh yang tepat untuk Anda</p>
             <Link to="/katalog" className="btn btn-primary btn-lg shine ripple">
               Mulai Jelajahi

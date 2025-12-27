@@ -1,5 +1,5 @@
-// API Configuration
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.hibiscusefsya.com/api';
+// API Configuration - v2 Fixed CORS
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.hibiscusefsya.com';
 
 export const API_ENDPOINTS = {
   homepage: `${API_BASE_URL}/homepage.php`,
