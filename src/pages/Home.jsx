@@ -10,7 +10,7 @@ import {
   FloatingElement,
   ScrollProgress 
 } from '../components/AnimatedComponents'
-import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useScrollReveal } from '../hooks/useScrollReveal.jsx'
 import './Home.css'
 
 function Home() {
