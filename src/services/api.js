@@ -1,0 +1,61 @@
+import axios from 'axios';
+import { API_ENDPOINTS } from '../config/api';
+
+// Get homepage data
+export const getHomepageData = async () => {
+  try {
+    const response = await axios.get(API_ENDPOINTS.homepage);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching homepage data:', error);
+    throw error;
+  }
+};
+
+// Get products list
+export const getProducts = async (params = {}) => {
+  try {
+    const response = await axios.get(API_ENDPOINTS.products, { params });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    throw error;
+  }
+};
+
+// Get single product by slug
+export const getProductBySlug = async (slug) => {
+  try {
+    const response = await axios.get(API_ENDPOINTS.products, {
+      params: { action: 'detail', slug }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    throw error;
+  }
+};
+
+// Get categories
+export const getCategories = async () => {
+  try {
+    const response = await axios.get(API_ENDPOINTS.categories);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    throw error;
+  }
+};
+
+// Search products
+export const searchProducts = async (query) => {
+  try {
+    const response = await axios.get(API_ENDPOINTS.products, {
+      params: { search: query }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error searching products:', error);
+    throw error;
+  }
+};
