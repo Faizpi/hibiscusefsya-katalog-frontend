@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useSearchParams, Link } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
+import { ScrollReveal } from '../components/AnimatedComponents'
 import { getProducts, getCategories } from '../services/api'
 import './Catalog.css'
 
@@ -217,8 +218,10 @@ function Catalog() {
               ) : products.length > 0 ? (
                 <>
                   <div className="products-grid">
-                    {products.map((product) => (
-                      <ProductCard key={product.id} product={product} />
+                    {products.map((product, index) => (
+                      <ScrollReveal key={product.id} animation="fadeInUp" delay={index * 80}>
+                        <ProductCard product={product} />
+                      </ScrollReveal>
                     ))}
                   </div>
 

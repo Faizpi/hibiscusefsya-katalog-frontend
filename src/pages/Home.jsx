@@ -205,34 +205,42 @@ function Home() {
       {/* Categories Section */}
       <section className="section categories-section" id="categories" ref={categoriesRef}>
         <div className="container">
-          <div className="section-header reveal-fade">
-            <h2><LetterReveal text="Kategori Produk" delay={40} /></h2>
-            <p>Temukan berbagai produk perawatan tubuh untuk kesegaran Anda</p>
+          <div className="section-header">
+            <ScrollReveal animation="fadeInUp">
+              <h2><LetterReveal text="Kategori Produk" delay={40} /></h2>
+            </ScrollReveal>
+            <ScrollReveal animation="fadeInUp" delay={200}>
+              <p>Temukan berbagai produk perawatan tubuh untuk kesegaran Anda</p>
+            </ScrollReveal>
           </div>
           <div className="categories-grid">
             {data?.categories?.map((category, index) => (
-              <Link 
+              <ScrollReveal 
                 key={category.id} 
-                to={`/katalog/${category.slug}`}
-                className="category-card hover-lift reveal-item"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                animation="scaleIn" 
+                delay={index * 100}
               >
-                <FloatingElement amplitude={5} duration={3 + index * 0.5}>
-                  <div className="category-icon">
-                    {category.slug === 'deodorant-roll-on' && (
-                      <img src={logoSrc} alt="Hibiscus Efsya" style={{ width: 48, height: 48, objectFit: 'contain' }} />
-                    )}
-                    {category.slug === 'po-powder' && '✨'}
-                    {category.slug === 'bedak-biang-keringat' && '💫'}
-                    {category.slug === 'body-mist' && '🌸'}
-                    {category.slug === 'body-lotion' && (
-                      <img src={logoSrc} alt="Hibiscus Efsya" style={{ width: 48, height: 48, objectFit: 'contain' }} />
-                    )}
-                  </div>
-                </FloatingElement>
-                <h3>{category.name}</h3>
-                <span className="category-count">{category.product_count} produk</span>
-              </Link>
+                <Link 
+                  to={`/katalog/${category.slug}`}
+                  className="category-card hover-lift"
+                >
+                  <FloatingElement amplitude={5} duration={3 + index * 0.5}>
+                    <div className="category-icon">
+                      {category.slug === 'deodorant-roll-on' && (
+                        <img src={logoSrc} alt="Hibiscus Efsya" style={{ width: 48, height: 48, objectFit: 'contain' }} />
+                      )}
+                      {category.slug === 'po-powder' && '✨'}
+                      {category.slug === 'bedak-biang-keringat' && '💫'}
+                      {category.slug === 'body-mist' && '🌸'}
+                      {category.slug === 'body-lotion' && (
+                        <img src={logoSrc} alt="Hibiscus Efsya" style={{ width: 48, height: 48, objectFit: 'contain' }} />
+                      )}
+                    </div>
+                  </FloatingElement>
+                  <h3>{category.name}</h3>
+                  <span className="category-count">{category.product_count} produk</span>
+                </Link>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -241,22 +249,32 @@ function Home() {
       {/* Featured Products */}
       <section className="section featured-section" id="featured" ref={featuredRef}>
         <div className="container">
-          <div className="section-header reveal-fade">
-            <h2><LetterReveal text="Produk Unggulan" delay={40} /></h2>
-            <p>Pilihan terbaik yang paling diminati</p>
+          <div className="section-header">
+            <ScrollReveal animation="fadeInUp">
+              <h2><LetterReveal text="Produk Unggulan" delay={40} /></h2>
+            </ScrollReveal>
+            <ScrollReveal animation="fadeInUp" delay={200}>
+              <p>Pilihan terbaik yang paling diminati</p>
+            </ScrollReveal>
           </div>
           <div className="products-grid">
             {data?.featured_products?.map((product, index) => (
-              <div key={product.id} className="reveal-item" style={{ animationDelay: `${index * 0.15}s` }}>
+              <ScrollReveal 
+                key={product.id} 
+                animation="fadeInUp" 
+                delay={index * 100}
+              >
                 <ProductCard product={product} />
-              </div>
+              </ScrollReveal>
             ))}
           </div>
-          <div className="section-footer reveal-fade">
-            <Link to="/katalog" className="btn btn-primary shine">
-              Lihat Semua Produk
-            </Link>
-          </div>
+          <ScrollReveal animation="fadeInUp" delay={400}>
+            <div className="section-footer">
+              <Link to="/katalog" className="btn btn-primary shine">
+                Lihat Semua Produk
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -270,17 +288,19 @@ function Home() {
               { icon: '🌿', title: 'Bahan Berkualitas', desc: 'Terbuat dari tawas, talc, dan parfum pilihan' },
               { icon: '💰', title: 'Harga Terjangkau', desc: 'Kualitas premium dengan harga ekonomis' }
             ].map((benefit, index) => (
-              <div 
+              <ScrollReveal 
                 key={index} 
-                className="benefit-card hover-lift reveal-item"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                animation="flipIn" 
+                delay={index * 100}
               >
-                <FloatingElement amplitude={8} duration={3 + index * 0.3}>
-                  <div className="benefit-icon">{benefit.icon}</div>
-                </FloatingElement>
-                <h4>{benefit.title}</h4>
-                <p>{benefit.desc}</p>
-              </div>
+                <div className="benefit-card hover-lift">
+                  <FloatingElement amplitude={8} duration={3 + index * 0.3}>
+                    <div className="benefit-icon">{benefit.icon}</div>
+                  </FloatingElement>
+                  <h4>{benefit.title}</h4>
+                  <p>{benefit.desc}</p>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -290,25 +310,31 @@ function Home() {
       {data?.inspirations?.length > 0 && (
         <section className="section inspiration-section" ref={inspirationRef}>
           <div className="container">
-            <div className="section-header reveal-fade">
-              <h2><LetterReveal text="Inspirasi" delay={50} /></h2>
-              <p>Tips dan ide untuk Anda</p>
+            <div className="section-header">
+              <ScrollReveal animation="fadeInUp">
+                <h2><LetterReveal text="Inspirasi" delay={50} /></h2>
+              </ScrollReveal>
+              <ScrollReveal animation="fadeInUp" delay={200}>
+                <p>Tips dan ide untuk Anda</p>
+              </ScrollReveal>
             </div>
             <div className="inspiration-grid">
               {data.inspirations.map((item, index) => (
-                <div 
+                <ScrollReveal 
                   key={item.id} 
-                  className="inspiration-card hover-lift reveal-item"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  animation="fadeInLeft" 
+                  delay={index * 150}
                 >
-                  <div className="inspiration-image shine">
-                    <span>📖</span>
+                  <div className="inspiration-card hover-lift">
+                    <div className="inspiration-image shine">
+                      <span>📖</span>
+                    </div>
+                    <div className="inspiration-content">
+                      <h4>{item.title}</h4>
+                      <p>{item.content}</p>
+                    </div>
                   </div>
-                  <div className="inspiration-content">
-                    <h4>{item.title}</h4>
-                    <p>{item.content}</p>
-                  </div>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -318,29 +344,31 @@ function Home() {
       {/* About Section */}
       <section className="section about-section" id="about" ref={aboutRef}>
         <div className="container">
-          <div className="about-content reveal-fade">
-            <div className="about-text">
-              <h2><LetterReveal text={data?.settings?.about_title || "Tentang Kami"} delay={40} /></h2>
-              <p className="about-desc">
-                <WordReveal 
-                  text={data?.settings?.about_content || "M.B.K Indonesia adalah produsen produk kosmetik perawatan tubuh yang telah dipercaya masyarakat Indonesia."}
-                  delay={50}
-                />
-              </p>
-            </div>
+          <div className="about-content">
+            <ScrollReveal animation="fadeInLeft">
+              <div className="about-text">
+                <h2><LetterReveal text={data?.settings?.about_title || "Tentang Kami"} delay={40} /></h2>
+                <p className="about-desc">
+                  <WordReveal 
+                    text={data?.settings?.about_content || "M.B.K Indonesia adalah produsen produk kosmetik perawatan tubuh yang telah dipercaya masyarakat Indonesia."}
+                    delay={50}
+                  />
+                </p>
+              </div>
+            </ScrollReveal>
             <div className="about-features">
-              <div className="about-feature">
-                <span className="feature-icon">🏭</span>
-                <span>Produksi Indonesia</span>
-              </div>
-              <div className="about-feature">
-                <span className="feature-icon">✅</span>
-                <span>Bersertifikat Halal</span>
-              </div>
-              <div className="about-feature">
-                <span className="feature-icon">🛡️</span>
-                <span>BPOM Approved</span>
-              </div>
+              {[
+                { icon: '🏭', text: 'Produksi Indonesia' },
+                { icon: '✅', text: 'Bersertifikat Halal' },
+                { icon: '🛡️', text: 'BPOM Approved' }
+              ].map((feature, index) => (
+                <ScrollReveal key={index} animation="fadeInRight" delay={index * 150}>
+                  <div className="about-feature">
+                    <span className="feature-icon">{feature.icon}</span>
+                    <span>{feature.text}</span>
+                  </div>
+                </ScrollReveal>
+              ))}
             </div>
           </div>
         </div>
@@ -349,12 +377,18 @@ function Home() {
       {/* CTA Section */}
       <section className="section cta-section" ref={ctaRef}>
         <div className="container">
-          <div className="cta-content reveal-fade">
-            <h2><LetterReveal text="Siap Tampil Segar Sepanjang Hari?" delay={30} /></h2>
-            <p>Jelajahi koleksi lengkap produk M.B.K dan temukan solusi perawatan tubuh yang tepat untuk Anda</p>
-            <Link to="/katalog" className="btn btn-primary btn-lg shine ripple">
-              Mulai Jelajahi
-            </Link>
+          <div className="cta-content">
+            <ScrollReveal animation="zoomIn">
+              <h2><LetterReveal text="Siap Tampil Segar Sepanjang Hari?" delay={30} /></h2>
+            </ScrollReveal>
+            <ScrollReveal animation="fadeInUp" delay={200}>
+              <p>Jelajahi koleksi lengkap produk M.B.K dan temukan solusi perawatan tubuh yang tepat untuk Anda</p>
+            </ScrollReveal>
+            <ScrollReveal animation="fadeInUp" delay={400}>
+              <Link to="/katalog" className="btn btn-primary btn-lg shine ripple">
+                Mulai Jelajahi
+              </Link>
+            </ScrollReveal>
           </div>
         </div>
       </section>
