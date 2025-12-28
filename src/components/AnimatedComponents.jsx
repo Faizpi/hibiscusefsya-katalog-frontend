@@ -44,7 +44,7 @@ export function MarqueeText({ children, speed = 20, className = '' }) {
 // Letter by Letter Reveal Component - RE-TRIGGERS ON SCROLL
 export function LetterReveal({ text, className = '', delay = 50, startDelay = 0 }) {
   const { ref, isVisible } = useInView({ threshold: 0.2 })
-  const [letters, setLetters] = useState([])
+  const [words, setWords] = useState([])
   const [animationKey, setAnimationKey] = useState(0)
 
   // Reset and re-animate when visibility changes
@@ -52,8 +52,8 @@ export function LetterReveal({ text, className = '', delay = 50, startDelay = 0 
     if (isVisible) {
       setAnimationKey(prev => prev + 1)
     } else {
-      // Reset letters when out of view
-      setLetters([])
+      // Reset when out of view
+      setWords([])
     }
   }, [isVisible])
 
@@ -61,20 +61,40 @@ export function LetterReveal({ text, className = '', delay = 50, startDelay = 0 
     if (!isVisible) return
 
     const timer = setTimeout(() => {
-      const chars = text.split('')
-      const letterElements = chars.map((char, index) => ({
-        char,
-        delay: index * delay,
-        visible: false
-      }))
-      setLetters(letterElements)
+      const rawWords = (text || '').split(' ')
+      let globalIndex = 0
 
-      chars.forEach((_, index) => {
-        setTimeout(() => {
-          setLetters(prev => prev.map((letter, i) => 
-            i === index ? { ...letter, visible: true } : letter
-          ))
-        }, index * delay)
+      const mapped = rawWords.map((w) => {
+        const chars = w.split('')
+        const letters = chars.map((char, i) => ({
+          char,
+          delay: (globalIndex + i) * delay,
+          visible: false
+        }))
+        globalIndex += chars.length + 1 // include space
+        return { letters }
+      })
+
+      setWords(mapped)
+
+      // Trigger visibility per letter sequentially
+      let triggerIndex = 0
+      rawWords.forEach((w, wi) => {
+        const chars = w.split('')
+        chars.forEach((_, ci) => {
+          setTimeout(() => {
+            setWords(prev => prev.map((word, idx) => {
+              if (idx !== wi) return word
+              const updatedLetters = word.letters.map((l, li) => (
+                li === ci ? { ...l, visible: true } : l
+              ))
+              return { ...word, letters: updatedLetters }
+            }))
+          }, triggerIndex * delay)
+          triggerIndex += 1
+        })
+        // Skip delay position for the space between words
+        triggerIndex += 1
       })
     }, startDelay)
 
@@ -83,14 +103,21 @@ export function LetterReveal({ text, className = '', delay = 50, startDelay = 0 
 
   return (
     <span ref={ref} className={`letter-reveal-container ${className}`}>
-      {letters.map((letter, index) => (
-        <span
-          key={`${animationKey}-${index}`}
-          className={`letter ${letter.visible ? 'visible' : ''}`}
-          style={{ transitionDelay: `${letter.delay}ms` }}
-        >
-          {letter.char === ' ' ? '\u00A0' : letter.char}
-        </span>
+      {words.map((word, wIdx) => (
+        <React.Fragment key={`${animationKey}-w-${wIdx}`}>
+          <span className="letter-word">
+            {word.letters.map((letter, lIdx) => (
+              <span
+                key={`${animationKey}-${wIdx}-${lIdx}`}
+                className={`letter ${letter.visible ? 'visible' : ''}`}
+                style={{ transitionDelay: `${letter.delay}ms` }}
+              >
+                {letter.char}
+              </span>
+            ))}
+          </span>
+          {wIdx < words.length - 1 ? ' ' : null}
+        </React.Fragment>
       ))}
     </span>
   )
@@ -293,7 +320,8 @@ export function ScrollReveal({
   animation = 'fadeInUp', 
   delay = 0, 
   duration = 600,
-  threshold = 0.1 
+  threshold = 0.1,
+  style: customStyle = {}
 }) {
   const { ref, isVisible } = useInView({ threshold })
 
@@ -319,6 +347,7 @@ export function ScrollReveal({
       className={`scroll-reveal ${className} ${isVisible ? 'revealed' : ''}`}
       style={{
         ...currentStyle,
+        ...customStyle,
         transition: `all ${duration}ms cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms`,
         willChange: 'transform, opacity'
       }}

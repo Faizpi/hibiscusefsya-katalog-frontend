@@ -34,7 +34,13 @@
 
 /* Letter Reveal */
 .letter-reveal-container {
+  display: inline;
+}
+
+/* Keep words together, allow wrapping at spaces */
+.letter-reveal-container .letter-word {
   display: inline-block;
+  white-space: nowrap;
 }
 
 .letter-reveal-container .letter {
