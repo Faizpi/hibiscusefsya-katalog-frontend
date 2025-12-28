@@ -219,7 +219,7 @@ function Catalog() {
                 <>
                   <div className="products-grid">
                     {products.map((product, index) => (
-                      <ScrollReveal key={product.id} animation="fadeInUp" delay={index * 80}>
+                      <ScrollReveal key={product.id} animation="fadeInUp" delay={index * 80} style={{ display: 'flex', flexDirection: 'column' }}>
                         <ProductCard product={product} />
                       </ScrollReveal>
                     ))}
