@@ -408,7 +408,7 @@ function Home() {
 
       {/* Inspiration Section */}
       {data?.inspirations?.length > 0 && (
-        <section className="section inspiration-section" ref={inspirationRef}>
+        <section className="section inspiration-section" id="inspirasi" ref={inspirationRef}>
           <div className="container">
             <div className="section-header">
               <ScrollReveal animation="fadeInUp">
@@ -419,23 +419,50 @@ function Home() {
               </ScrollReveal>
             </div>
             <div className="inspiration-grid">
-              {data.inspirations.map((item, index) => (
-                <ScrollReveal 
-                  key={item.id} 
-                  animation="fadeInLeft" 
-                  delay={index * 150}
-                >
-                  <div className="inspiration-card hover-lift">
-                    <div className="inspiration-image shine">
-                      <span>📖</span>
-                    </div>
-                    <div className="inspiration-content">
-                      <h4>{item.title}</h4>
-                      <p>{item.content}</p>
-                    </div>
-                  </div>
-                </ScrollReveal>
-              ))}
+              {data.inspirations.map((item, index) => {
+                // Map slug to image
+                const getInspirationImage = (slug) => {
+                  switch(slug) {
+                    case 'tips-mengatasi-bau-badan':
+                      return 'tips1.jpg'
+                    case 'manfaat-bedak-tabur':
+                      return 'tips2.jpg'
+                    case 'cara-memilih-deodorant':
+                      return 'tips4.webp'
+                    default:
+                      return 'tips1.jpg'
+                  }
+                }
+                const imageSrc = `${import.meta.env.BASE_URL}${getInspirationImage(item.slug)}`
+                
+                return (
+                  <ScrollReveal 
+                    key={item.id} 
+                    animation="fadeInLeft" 
+                    delay={index * 150}
+                  >
+                    <Link to={`/artikel/${item.slug}`} className="inspiration-card hover-lift">
+                      <div className="inspiration-image shine">
+                        <img 
+                          src={imageSrc} 
+                          alt={item.title}
+                          onError={(e) => { e.target.src = logoSrc }}
+                        />
+                      </div>
+                      <div className="inspiration-content">
+                        <h4>{item.title}</h4>
+                        <p>{item.content}</p>
+                        <span className="inspiration-link">
+                          Baca Selengkapnya
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                          </svg>
+                        </span>
+                      </div>
+                    </Link>
+                  </ScrollReveal>
+                )
+              })}
             </div>
           </div>
         </section>
