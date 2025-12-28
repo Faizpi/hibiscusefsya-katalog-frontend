@@ -214,34 +214,133 @@ function Home() {
             </ScrollReveal>
           </div>
           <div className="categories-grid">
-            {data?.categories?.map((category, index) => (
-              <ScrollReveal 
-                key={category.id} 
-                animation="scaleIn" 
-                delay={index * 100}
-              >
-                <Link 
-                  to={`/katalog/${category.slug}`}
-                  className="category-card hover-lift"
+            {data?.categories?.map((category, index) => {
+              // SVG Icons for each category
+              const getCategoryIcon = (slug) => {
+                switch(slug) {
+                  case 'deodorant-roll-on':
+                    return (
+                      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="8" width="24" height="48" rx="6" fill="url(#gradient1)" />
+                        <rect x="22" y="10" width="20" height="12" rx="4" fill="#fff" fillOpacity="0.3" />
+                        <circle cx="32" cy="52" r="4" fill="#fff" fillOpacity="0.5" />
+                        <ellipse cx="32" cy="6" rx="6" ry="2" fill="url(#gradient1)" />
+                        <defs>
+                          <linearGradient id="gradient1" x1="20" y1="8" x2="44" y2="56" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#E91E63" />
+                            <stop offset="1" stopColor="#AD1457" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    );
+                  case 'po-powder':
+                    return (
+                      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="36" r="20" fill="url(#gradient2)" />
+                        <ellipse cx="32" cy="18" rx="14" ry="4" fill="url(#gradient2)" />
+                        <rect x="18" y="18" width="28" height="18" fill="url(#gradient2)" />
+                        <circle cx="32" cy="36" r="12" fill="#fff" fillOpacity="0.2" />
+                        <path d="M26 32 L32 28 L38 32 L32 36 Z" fill="#fff" fillOpacity="0.4" />
+                        <defs>
+                          <linearGradient id="gradient2" x1="12" y1="14" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#9C27B0" />
+                            <stop offset="1" stopColor="#6A1B9A" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    );
+                  case 'bedak-biang-keringat':
+                    return (
+                      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="16" y="20" width="32" height="36" rx="4" fill="url(#gradient3)" />
+                        <rect x="20" y="8" width="24" height="16" rx="2" fill="url(#gradient3)" />
+                        <circle cx="32" cy="12" r="4" fill="#fff" fillOpacity="0.5" />
+                        <rect x="20" y="28" width="24" height="20" rx="2" fill="#fff" fillOpacity="0.2" />
+                        <circle cx="26" cy="34" r="2" fill="#fff" fillOpacity="0.5" />
+                        <circle cx="32" cy="38" r="2" fill="#fff" fillOpacity="0.5" />
+                        <circle cx="38" cy="34" r="2" fill="#fff" fillOpacity="0.5" />
+                        <circle cx="29" cy="42" r="2" fill="#fff" fillOpacity="0.5" />
+                        <circle cx="35" cy="42" r="2" fill="#fff" fillOpacity="0.5" />
+                        <defs>
+                          <linearGradient id="gradient3" x1="16" y1="8" x2="48" y2="56" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#00BCD4" />
+                            <stop offset="1" stopColor="#00838F" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    );
+                  case 'body-mist':
+                    return (
+                      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24 20 L24 52 Q24 56 28 56 L36 56 Q40 56 40 52 L40 20 Z" fill="url(#gradient4)" />
+                        <rect x="26" y="8" width="12" height="12" rx="2" fill="#666" />
+                        <rect x="30" y="4" width="4" height="6" rx="1" fill="#888" />
+                        <ellipse cx="32" cy="38" rx="6" ry="10" fill="#fff" fillOpacity="0.2" />
+                        <circle cx="20" cy="12" r="2" fill="#E1BEE7" />
+                        <circle cx="16" cy="18" r="1.5" fill="#E1BEE7" />
+                        <circle cx="44" cy="14" r="2" fill="#E1BEE7" />
+                        <circle cx="48" cy="20" r="1.5" fill="#E1BEE7" />
+                        <defs>
+                          <linearGradient id="gradient4" x1="24" y1="20" x2="40" y2="56" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#E91E63" />
+                            <stop offset="1" stopColor="#C2185B" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    );
+                  case 'body-lotion':
+                    return (
+                      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 24 L22 52 Q22 56 26 56 L38 56 Q42 56 42 52 L42 24 Q42 20 38 20 L26 20 Q22 20 22 24 Z" fill="url(#gradient5)" />
+                        <rect x="28" y="10" width="8" height="10" rx="2" fill="#FFF3E0" stroke="#FF9800" strokeWidth="2" />
+                        <rect x="26" y="28" width="12" height="16" rx="2" fill="#fff" fillOpacity="0.3" />
+                        <path d="M30 32 Q32 36 34 32" stroke="#fff" strokeWidth="2" strokeLinecap="round" fill="none" />
+                        <circle cx="32" cy="40" r="3" fill="#fff" fillOpacity="0.4" />
+                        <defs>
+                          <linearGradient id="gradient5" x1="22" y1="20" x2="42" y2="56" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#FF9800" />
+                            <stop offset="1" stopColor="#F57C00" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    );
+                  default:
+                    return (
+                      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="24" fill="url(#gradientDefault)" />
+                        <path d="M32 16 L36 28 L48 28 L38 36 L42 48 L32 40 L22 48 L26 36 L16 28 L28 28 Z" fill="#fff" fillOpacity="0.5" />
+                        <defs>
+                          <linearGradient id="gradientDefault" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#E91E63" />
+                            <stop offset="1" stopColor="#AD1457" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+                    );
+                }
+              };
+
+              return (
+                <ScrollReveal 
+                  key={category.id} 
+                  animation="fadeInUp" 
+                  delay={index * 100}
                 >
-                  <FloatingElement amplitude={5} duration={3 + index * 0.5}>
-                    <div className="category-icon">
-                      {category.slug === 'deodorant-roll-on' && (
-                        <img src={logoSrc} alt="Hibiscus Efsya" style={{ width: 48, height: 48, objectFit: 'contain' }} />
-                      )}
-                      {category.slug === 'po-powder' && '✨'}
-                      {category.slug === 'bedak-biang-keringat' && '💫'}
-                      {category.slug === 'body-mist' && '🌸'}
-                      {category.slug === 'body-lotion' && (
-                        <img src={logoSrc} alt="Hibiscus Efsya" style={{ width: 48, height: 48, objectFit: 'contain' }} />
-                      )}
-                    </div>
-                  </FloatingElement>
-                  <h3>{category.name}</h3>
-                  <span className="category-count">{category.product_count} produk</span>
-                </Link>
-              </ScrollReveal>
-            ))}
+                  <Link 
+                    to={`/katalog/${category.slug}`}
+                    className="category-card hover-lift"
+                  >
+                    <FloatingElement amplitude={5} duration={3 + index * 0.5}>
+                      <div className="category-icon">
+                        {getCategoryIcon(category.slug)}
+                      </div>
+                    </FloatingElement>
+                    <h3>{category.name}</h3>
+                    <span className="category-count">{category.product_count} produk</span>
+                  </Link>
+                </ScrollReveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -263,6 +362,7 @@ function Home() {
                 key={product.id} 
                 animation="fadeInUp" 
                 delay={index * 100}
+                style={{ display: 'flex', flexDirection: 'column' }}
               >
                 <ProductCard product={product} />
               </ScrollReveal>
