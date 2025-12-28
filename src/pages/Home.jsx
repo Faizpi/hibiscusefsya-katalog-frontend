@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
 import { getHomepageData } from '../services/api'
 import { 
-  MarqueeText, 
   LetterReveal, 
   WordReveal, 
   AnimatedCounter,
   FloatingElement,
   ScrollProgress 
 } from '../components/AnimatedComponents'
+import TextType from '../components/TextType'
+import Stack from '../components/Stack'
 import { useScrollReveal } from '../hooks/useScrollReveal.jsx'
 import './Home.css'
 
@@ -48,12 +49,21 @@ function Home() {
       hero_description: 'Produk perawatan tubuh berkualitas untuk menjaga kesegaran dan kebersihan Anda. Deodorant dan bedak tabur yang efektif mengatasi bau badan.',
       about_title: 'Tentang Kami',
       about_content: 'M.B.K Indonesia adalah produsen produk kosmetik perawatan tubuh yang telah dipercaya masyarakat Indonesia.'
-    }
+    },
+    hero_images: [
+      'https://api.hibiscusefsya.com/uploads/products/default1.jpg',
+      'https://api.hibiscusefsya.com/uploads/products/default2.jpg',
+      'https://api.hibiscusefsya.com/uploads/products/default3.jpg',
+      'https://api.hibiscusefsya.com/uploads/products/default4.jpg'
+    ]
   })
 
   const [data, setData] = useState(getDummyData())
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  
+  // Public logo path (place file in katalog/public/logo.png)
+  const logoSrc = `${import.meta.env.BASE_URL}logo.png`
   
   // Scroll reveal refs
   const heroRef = useScrollReveal()
@@ -80,6 +90,13 @@ function Home() {
     }
   }
 
+  // Helper function to parse hero_subtitle into array for TextType component
+  const getHeroSubtitleArray = () => {
+    const subtitle = data?.settings?.hero_subtitle || ''
+    const parts = subtitle.split(/[,;✦]+/).map(s => s.trim()).filter(s => s)
+    return parts.length > 0 ? parts : ['Part of M.B.K Indonesia', 'Deodorant Roll On', 'P.O. Powder']
+  }
+
   return (
     <div className="home">
       {/* Scroll Progress Bar */}
@@ -95,9 +112,13 @@ function Home() {
               <LetterReveal text={data?.settings?.site_name || "Hibiscus Efsya"} className="text-display" delay={50} />
             </h1>
             <div className="hero-marquee">
-              <MarqueeText 
-                text={data?.settings?.hero_subtitle || "✦ part of M.B.K Indonesia ✦ Deodorant Roll On ✦ P.O. Powder ✦ Bedak Biang Keringat ✦ Halal & Berkualitas "} 
-                speed={25}
+              <TextType 
+                text={getHeroSubtitleArray()}
+                typingSpeed={75}
+                pauseDuration={2000}
+                deletingSpeed={40}
+                showCursor={true}
+                cursorCharacter="|"
                 className="hero-subtitle-marquee"
               />
             </div>
@@ -120,13 +141,35 @@ function Home() {
             </div>
           </div>
           <div className="hero-visual">
-            <FloatingElement amplitude={15} duration={4}>
-              <div className="hero-image-wrapper">
-                <div className="hero-image-placeholder pulse-subtle">
-                  <span>🧴</span>
-                </div>
-              </div>
-            </FloatingElement>
+            <div className="hero-stack-wrapper">
+              <Stack
+                randomRotation={true}
+                sensitivity={180}
+                sendToBackOnClick={true}
+                autoplay={true}
+                autoplayDelay={3000}
+                pauseOnHover={true}
+                cards={(data?.hero_images || data?.featured_products?.slice(0, 4) || []).map((item, i) => {
+                  const imgSrc = typeof item === 'string' 
+                    ? item 
+                    : (item?.image_url || `${logoSrc}`)
+                  return (
+                    <img 
+                      key={i} 
+                      src={imgSrc} 
+                      alt={`Product ${i + 1}`} 
+                      style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'cover',
+                        backgroundColor: '#f5f5f5'
+                      }} 
+                      onError={(e) => { e.target.src = logoSrc }}
+                    />
+                  )
+                })}
+              />
+            </div>
             <div className="hero-stats animate-scaleIn" style={{ animationDelay: '0.8s' }}>
               <div className="stat-item">
                 <span className="stat-number">
@@ -159,7 +202,7 @@ function Home() {
       </section>
 
       {/* Categories Section */}
-      <section className="section categories-section" id="about" ref={categoriesRef}>
+      <section className="section categories-section" id="categories" ref={categoriesRef}>
         <div className="container">
           <div className="section-header reveal-fade">
             <h2><LetterReveal text="Kategori Produk" delay={40} /></h2>
@@ -175,11 +218,15 @@ function Home() {
               >
                 <FloatingElement amplitude={5} duration={3 + index * 0.5}>
                   <div className="category-icon">
-                    {category.slug === 'deodorant-roll-on' && '🧴'}
+                    {category.slug === 'deodorant-roll-on' && (
+                      <img src={logoSrc} alt="Hibiscus Efsya" style={{ width: 48, height: 48, objectFit: 'contain' }} />
+                    )}
                     {category.slug === 'po-powder' && '✨'}
                     {category.slug === 'bedak-biang-keringat' && '💫'}
                     {category.slug === 'body-mist' && '🌸'}
-                    {category.slug === 'body-lotion' && '🧴'}
+                    {category.slug === 'body-lotion' && (
+                      <img src={logoSrc} alt="Hibiscus Efsya" style={{ width: 48, height: 48, objectFit: 'contain' }} />
+                    )}
                   </div>
                 </FloatingElement>
                 <h3>{category.name}</h3>
