@@ -12,6 +12,7 @@ import {
 } from '../components/AnimatedComponents'
 import TextType from '../components/TextType'
 import Stack from '../components/Stack'
+import Squares from '../components/Squares'
 import { useScrollReveal } from '../hooks/useScrollReveal.jsx'
 import './Home.css'
 
@@ -105,7 +106,15 @@ function Home() {
       
       {/* Hero Section */}
       <section className="hero" ref={heroRef}>
-        <div className="hero-bg"></div>
+        <div className="hero-bg">
+          <Squares 
+            speed={0.3} 
+            squareSize={50}
+            direction='diagonal'
+            borderColor='rgba(220, 38, 38, 0.08)'
+            hoverFillColor='rgba(220, 38, 38, 0.1)'
+          />
+        </div>
         <div className="container hero-container">
           <div className="hero-content">
             <span className="hero-badge animate-fadeIn">✨ Kosmetik & Perawatan Tubuh</span>
