@@ -486,7 +486,7 @@ function Home() {
             <div className="about-features">
               {[
                 { image: 'about1.jpg', text: 'Produksi Indonesia' },
-                { image: 'about2.avif', text: 'Bersertifikat Halal' },
+                { image: 'about4.avif', text: 'Bersertifikat Halal' },
                 { image: 'about3.jpg', text: 'BPOM Approved' }
               ].map((feature, index) => (
                 <ScrollReveal key={index} animation="fadeInRight" delay={index * 150}>
