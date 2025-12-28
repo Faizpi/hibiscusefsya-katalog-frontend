@@ -485,14 +485,20 @@ function Home() {
             </ScrollReveal>
             <div className="about-features">
               {[
-                { icon: '🏭', text: 'Produksi Indonesia' },
-                { icon: '✅', text: 'Bersertifikat Halal' },
-                { icon: '🛡️', text: 'BPOM Approved' }
+                { image: 'about1.jpg', text: 'Produksi Indonesia' },
+                { image: 'about2.avif', text: 'Bersertifikat Halal' },
+                { image: 'about3.jpg', text: 'BPOM Approved' }
               ].map((feature, index) => (
                 <ScrollReveal key={index} animation="fadeInRight" delay={index * 150}>
-                  <div className="about-feature">
-                    <span className="feature-icon">{feature.icon}</span>
-                    <span>{feature.text}</span>
+                  <div className="about-feature hover-lift">
+                    <div className="feature-image">
+                      <img 
+                        src={`${import.meta.env.BASE_URL}${feature.image}`} 
+                        alt={feature.text}
+                        onError={(e) => { e.target.src = logoSrc }}
+                      />
+                    </div>
+                    <span className="feature-text">{feature.text}</span>
                   </div>
                 </ScrollReveal>
               ))}
