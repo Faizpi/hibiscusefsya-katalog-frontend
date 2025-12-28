@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Home from './pages/Home'
 import Catalog from './pages/Catalog'
 import ProductDetail from './pages/ProductDetail'
+import ArticleDetail from './pages/ArticleDetail'
 
 // Component untuk handle scroll ke section
 function ScrollHandler() {
@@ -40,6 +41,7 @@ function App() {
             <Route path="/katalog" element={<Catalog />} />
             <Route path="/katalog/:category" element={<Catalog />} />
             <Route path="/produk/:slug" element={<ProductDetail />} />
+            <Route path="/artikel/:slug" element={<ArticleDetail />} />
           </Routes>
         </main>
         <Footer />
