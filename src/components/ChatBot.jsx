@@ -15,7 +15,7 @@ const ChatBot = () => {
   const inputRef = useRef(null)
 
   // WhatsApp link for human support
-  const whatsappLink = 'https://wa.me/6287871656326?text=Halo%20Hibiscus%20Efsya%2C%20saya%20butuh%20bantuan'
+  const whatsappLink = 'https://wa.me/6289608667949?text=Halo%20Hibiscus%20Efsya%2C%20saya%20butuh%20bantuan'
 
   // Quick suggestions
   const quickSuggestions = [
@@ -51,7 +51,8 @@ const ChatBot = () => {
     try {
       const [homepageRes, productsRes, categoriesRes] = await Promise.all([
         getHomepageData(),
-        getProducts(),
+        // Fetch all products (up to 50) to avoid pagination limiting to 12
+        getProducts({ limit: 50, page: 1 }),
         getCategories()
       ])
 
@@ -460,20 +461,18 @@ const ChatBot = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Quick Suggestions (when empty) */}
-        {messages.length === 0 && (
-          <div className="chatbot-quick-suggestions">
-            {quickSuggestions.map((suggestion, idx) => (
-              <button
-                key={idx}
-                className="quick-suggestion-btn"
-                onClick={() => handleSuggestionClick(suggestion.query)}
-              >
-                {suggestion.text}
-              </button>
-            ))}
-          </div>
-        )}
+        {/* Quick Suggestions (always visible) */}
+        <div className="chatbot-quick-suggestions">
+          {quickSuggestions.map((suggestion, idx) => (
+            <button
+              key={idx}
+              className="quick-suggestion-btn"
+              onClick={() => handleSuggestionClick(suggestion.query)}
+            >
+              {suggestion.text}
+            </button>
+          ))}
+        </div>
 
         {/* Input Area */}
         <div className="chatbot-input-area">

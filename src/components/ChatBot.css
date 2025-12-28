@@ -444,14 +444,14 @@
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  padding: 0 20px 16px;
+  gap: 4px;
+  padding: 0 12px 10px;
   justify-content: center;
 }
 
 .quick-suggestion-btn {
-  padding: 10px 16px;
-  font-size: 0.825rem;
+  padding: 7px 12px;
+  font-size: 0.78rem;
   background: linear-gradient(
     135deg,
     rgba(255, 255, 255, 0.8) 0%,
@@ -623,7 +623,8 @@
   }
 
   .chatbot-quick-suggestions {
-    padding: 0 16px 12px;
+    gap: 4px;
+    padding: 0 10px 8px;
   }
 
   .chatbot-input-area {
@@ -637,8 +638,8 @@
 
   .quick-suggestion-btn,
   .suggestion-btn {
-    font-size: 0.8rem;
-    padding: 8px 12px;
+    font-size: 0.75rem;
+    padding: 6px 10px;
   }
 }
 
