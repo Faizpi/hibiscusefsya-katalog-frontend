@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './Navbar.css'
 
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +20,23 @@ function Navbar() {
   useEffect(() => {
     setIsMobileMenuOpen(false)
   }, [location])
+
+  // Handle click untuk section links
+  const handleSectionClick = (e, sectionId) => {
+    e.preventDefault()
+    
+    // Jika di halaman lain, navigate ke home dulu dengan hash
+    if (location.pathname !== '/') {
+      navigate('/#' + sectionId)
+    } else {
+      // Jika sudah di home, langsung scroll
+      const element = document.getElementById(sectionId)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }
+    }
+    setIsMobileMenuOpen(false)
+  }
 
   return (
     <header className={`navbar ${isScrolled ? 'navbar-scrolled' : ''}`}>
@@ -46,8 +64,8 @@ function Navbar() {
           >
             Katalog
           </Link>
-          <a href="#about" className="nav-link">Tentang Kami</a>
-          <a href="#contact" className="nav-link">Kontak</a>
+          <a href="#about" onClick={(e) => handleSectionClick(e, 'about')} className="nav-link">Tentang Kami</a>
+          <a href="#contact" onClick={(e) => handleSectionClick(e, 'contact')} className="nav-link">Kontak</a>
         </nav>
 
         {/* CTA Button */}
@@ -72,8 +90,8 @@ function Navbar() {
         <nav className="mobile-nav">
           <Link to="/" className="mobile-nav-link">Beranda</Link>
           <Link to="/katalog" className="mobile-nav-link">Katalog</Link>
-          <a href="#about" className="mobile-nav-link">Tentang Kami</a>
-          <a href="#contact" className="mobile-nav-link">Kontak</a>
+          <a href="#about" onClick={(e) => handleSectionClick(e, 'about')} className="mobile-nav-link">Tentang Kami</a>
+          <a href="#contact" onClick={(e) => handleSectionClick(e, 'contact')} className="mobile-nav-link">Kontak</a>
           <Link to="/katalog" className="btn btn-primary btn-block">
             Lihat Produk
           </Link>
