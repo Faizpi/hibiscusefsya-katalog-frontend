@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 
 // Custom hook for scroll reveal animations
+// Returns just the ref for simpler usage
 export function useScrollReveal(options = {}) {
   const ref = useRef(null)
-  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     const element = ref.current
@@ -12,12 +12,12 @@ export function useScrollReveal(options = {}) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true)
+          element.classList.add('revealed')
           if (!options.repeat) {
             observer.unobserve(element)
           }
         } else if (options.repeat) {
-          setIsVisible(false)
+          element.classList.remove('revealed')
         }
       },
       {
@@ -31,7 +31,7 @@ export function useScrollReveal(options = {}) {
     return () => observer.disconnect()
   }, [options.threshold, options.rootMargin, options.repeat])
 
-  return [ref, isVisible]
+  return ref
 }
 
 // Custom hook for letter-by-letter animation
