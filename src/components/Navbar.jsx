@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './Navbar.css'
 
 function Navbar() {
+  const logoSrc = `${import.meta.env.BASE_URL}logo.png`
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const location = useLocation()
@@ -43,7 +44,7 @@ function Navbar() {
       <div className="container navbar-container">
         {/* Logo */}
         <Link to="/" className="navbar-logo">
-          <span className="logo-icon">🧴</span>
+          <span className="logo-icon"><img src={logoSrc} alt="Hibiscus Efsya" style={{ width: 48, height: 48, objectFit: 'contain' }} /></span>
           <div className="logo-text">
             <span className="logo-name">Hibiscus Efsya</span>
             <span className="logo-tagline">part of M.B.K Indonesia</span>
