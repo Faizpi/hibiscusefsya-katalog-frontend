@@ -23,7 +23,7 @@ const ChatBot = () => {
     { text: '🏷️ Kategori produk', query: 'Kategori' },
     { text: '💰 Kisaran Harga', query: 'Berapa kisaran harga' },
     { text: '📍 Cara beli', query: 'Cara beli' },
-    { text: '✨ Tentang Hibiscus', query: 'Tentang Hibiscus Efsya' },
+    { text: '✨ Tentang Hibiscus Efsya', query: 'Tentang Hibiscus Efsya' },
   ]
 
   // Load all data on mount
@@ -79,15 +79,6 @@ const ChatBot = () => {
 
   const toggleChat = () => {
     setIsOpen(!isOpen)
-    if (!isOpen && messages.length === 0) {
-      // Welcome message
-      setTimeout(() => {
-        addBotMessage(
-          `Halo! 👋 Selamat datang di ${settingsData?.site_name || 'Hibiscus Efsya'}!\n\nSaya asisten virtual yang siap membantu Anda menemukan produk perawatan tubuh terbaik. Ada yang bisa saya bantu?`,
-          true
-        )
-      }, 500)
-    }
   }
 
   const addBotMessage = (text, showSuggestions = false) => {
