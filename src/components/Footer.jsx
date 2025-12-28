@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import './Footer.css'
 
 function Footer() {
+  const logoSrc = `${import.meta.env.BASE_URL}logo.png`
   const currentYear = new Date().getFullYear()
 
   return (
@@ -12,7 +13,7 @@ function Footer() {
           {/* Brand */}
           <div className="footer-brand">
             <Link to="/" className="footer-logo">
-              <span className="logo-icon">🧴</span>
+              <span className="logo-icon"><img src={logoSrc} alt="Hibiscus Efsya" style={{ width: 48, height: 48, objectFit: 'contain' }} /></span>
               <div className="logo-text">
                 <span className="logo-name">Hibiscus Efsya</span>
                 <span className="logo-tagline">part of M.B.K Indonesia</span>
@@ -47,8 +48,8 @@ function Footer() {
             <ul>
               <li><Link to="/">Beranda</Link></li>
               <li><Link to="/katalog">Katalog</Link></li>
-              <li><a href="#about">Tentang Kami</a></li>
-              <li><a href="#contact">Kontak</a></li>
+              <li><Link to="/#about">Tentang Kami</Link></li>
+              <li><Link to="/#contact">Kontak</Link></li>
             </ul>
           </div>
 
