@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 
 // Custom hook for scroll reveal animations
-// Returns just the ref for simpler usage
+// Now supports re-triggering on every scroll (both up and down)
 export function useScrollReveal(options = {}) {
   const ref = useRef(null)
+  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     const element = ref.current
@@ -11,12 +12,13 @@ export function useScrollReveal(options = {}) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        // Always update visibility state for re-triggering animations
+        setIsVisible(entry.isIntersecting)
+        
         if (entry.isIntersecting) {
           element.classList.add('revealed')
-          if (!options.repeat) {
-            observer.unobserve(element)
-          }
-        } else if (options.repeat) {
+        } else {
+          // Remove class when out of view so animation re-triggers
           element.classList.remove('revealed')
         }
       },
@@ -29,9 +31,36 @@ export function useScrollReveal(options = {}) {
     observer.observe(element)
 
     return () => observer.disconnect()
-  }, [options.threshold, options.rootMargin, options.repeat])
+  }, [options.threshold, options.rootMargin])
 
   return ref
+}
+
+// Hook that returns both ref and visibility state
+export function useScrollRevealState(options = {}) {
+  const ref = useRef(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      {
+        threshold: options.threshold || 0.1,
+        rootMargin: options.rootMargin || '0px'
+      }
+    )
+
+    observer.observe(element)
+
+    return () => observer.disconnect()
+  }, [options.threshold, options.rootMargin])
+
+  return { ref, isVisible }
 }
 
 // Custom hook for letter-by-letter animation

@@ -7,7 +7,8 @@ import {
   WordReveal, 
   AnimatedCounter,
   FloatingElement,
-  ScrollProgress 
+  ScrollProgress,
+  ScrollReveal
 } from '../components/AnimatedComponents'
 import TextType from '../components/TextType'
 import Stack from '../components/Stack'

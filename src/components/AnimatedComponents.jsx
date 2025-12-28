@@ -1,5 +1,31 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import './AnimatedComponents.css'
+
+// Hook untuk detect visibility dengan re-trigger
+function useInView(options = {}) {
+  const ref = useRef(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      {
+        threshold: options.threshold || 0.1,
+        rootMargin: options.rootMargin || '0px'
+      }
+    )
+
+    observer.observe(element)
+    return () => observer.disconnect()
+  }, [options.threshold, options.rootMargin])
+
+  return { ref, isVisible }
+}
 
 // Marquee Text Component (Running Text)
 export function MarqueeText({ children, speed = 20, className = '' }) {
@@ -15,41 +41,51 @@ export function MarqueeText({ children, speed = 20, className = '' }) {
   )
 }
 
-// Letter by Letter Reveal Component
+// Letter by Letter Reveal Component - RE-TRIGGERS ON SCROLL
 export function LetterReveal({ text, className = '', delay = 50, startDelay = 0 }) {
+  const { ref, isVisible } = useInView({ threshold: 0.2 })
   const [letters, setLetters] = useState([])
-  const [started, setStarted] = useState(false)
+  const [animationKey, setAnimationKey] = useState(0)
+
+  // Reset and re-animate when visibility changes
+  useEffect(() => {
+    if (isVisible) {
+      setAnimationKey(prev => prev + 1)
+    } else {
+      // Reset letters when out of view
+      setLetters([])
+    }
+  }, [isVisible])
 
   useEffect(() => {
-    const timer = setTimeout(() => setStarted(true), startDelay)
+    if (!isVisible) return
+
+    const timer = setTimeout(() => {
+      const chars = text.split('')
+      const letterElements = chars.map((char, index) => ({
+        char,
+        delay: index * delay,
+        visible: false
+      }))
+      setLetters(letterElements)
+
+      chars.forEach((_, index) => {
+        setTimeout(() => {
+          setLetters(prev => prev.map((letter, i) => 
+            i === index ? { ...letter, visible: true } : letter
+          ))
+        }, index * delay)
+      })
+    }, startDelay)
+
     return () => clearTimeout(timer)
-  }, [startDelay])
-
-  useEffect(() => {
-    if (!started) return
-
-    const chars = text.split('')
-    const letterElements = chars.map((char, index) => ({
-      char,
-      delay: index * delay,
-      visible: false
-    }))
-    setLetters(letterElements)
-
-    chars.forEach((_, index) => {
-      setTimeout(() => {
-        setLetters(prev => prev.map((letter, i) => 
-          i === index ? { ...letter, visible: true } : letter
-        ))
-      }, index * delay)
-    })
-  }, [text, delay, started])
+  }, [text, delay, startDelay, isVisible, animationKey])
 
   return (
-    <span className={`letter-reveal-container ${className}`}>
+    <span ref={ref} className={`letter-reveal-container ${className}`}>
       {letters.map((letter, index) => (
         <span
-          key={index}
+          key={`${animationKey}-${index}`}
           className={`letter ${letter.visible ? 'visible' : ''}`}
           style={{ transitionDelay: `${letter.delay}ms` }}
         >
@@ -60,41 +96,49 @@ export function LetterReveal({ text, className = '', delay = 50, startDelay = 0 
   )
 }
 
-// Word by Word Reveal Component
+// Word by Word Reveal Component - RE-TRIGGERS ON SCROLL
 export function WordReveal({ text, className = '', delay = 100, startDelay = 0 }) {
+  const { ref, isVisible } = useInView({ threshold: 0.2 })
   const [words, setWords] = useState([])
-  const [started, setStarted] = useState(false)
+  const [animationKey, setAnimationKey] = useState(0)
 
   useEffect(() => {
-    const timer = setTimeout(() => setStarted(true), startDelay)
+    if (isVisible) {
+      setAnimationKey(prev => prev + 1)
+    } else {
+      setWords([])
+    }
+  }, [isVisible])
+
+  useEffect(() => {
+    if (!isVisible) return
+
+    const timer = setTimeout(() => {
+      const wordArray = text.split(' ')
+      const wordElements = wordArray.map((word, index) => ({
+        word,
+        delay: index * delay,
+        visible: false
+      }))
+      setWords(wordElements)
+
+      wordArray.forEach((_, index) => {
+        setTimeout(() => {
+          setWords(prev => prev.map((w, i) => 
+            i === index ? { ...w, visible: true } : w
+          ))
+        }, index * delay)
+      })
+    }, startDelay)
+
     return () => clearTimeout(timer)
-  }, [startDelay])
-
-  useEffect(() => {
-    if (!started) return
-
-    const wordArray = text.split(' ')
-    const wordElements = wordArray.map((word, index) => ({
-      word,
-      delay: index * delay,
-      visible: false
-    }))
-    setWords(wordElements)
-
-    wordArray.forEach((_, index) => {
-      setTimeout(() => {
-        setWords(prev => prev.map((w, i) => 
-          i === index ? { ...w, visible: true } : w
-        ))
-      }, index * delay)
-    })
-  }, [text, delay, started])
+  }, [text, delay, startDelay, isVisible, animationKey])
 
   return (
-    <span className={`word-reveal-container ${className}`}>
+    <span ref={ref} className={`word-reveal-container ${className}`}>
       {words.map((word, index) => (
         <span
-          key={index}
+          key={`${animationKey}-${index}`}
           className={`word ${word.visible ? 'visible' : ''}`}
         >
           {word.word}{' '}
@@ -141,41 +185,44 @@ export function Typewriter({ texts, speed = 100, deleteSpeed = 50, pauseTime = 2
   )
 }
 
-// Counter Animation Component
+// Counter Animation Component - RE-TRIGGERS ON SCROLL
 export function AnimatedCounter({ target, duration = 2000, prefix = '', suffix = '' }) {
+  const { ref, isVisible } = useInView({ threshold: 0.5 })
   const [count, setCount] = useState(0)
-  const [hasAnimated, setHasAnimated] = useState(false)
+  const animationRef = useRef(null)
 
   useEffect(() => {
-    if (hasAnimated) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setHasAnimated(true)
-          let startTime = null
-          const animate = (timestamp) => {
-            if (!startTime) startTime = timestamp
-            const progress = Math.min((timestamp - startTime) / duration, 1)
-            setCount(Math.floor(progress * target))
-            if (progress < 1) {
-              requestAnimationFrame(animate)
-            }
-          }
-          requestAnimationFrame(animate)
+    if (isVisible) {
+      // Start counting animation
+      setCount(0)
+      let startTime = null
+      
+      const animate = (timestamp) => {
+        if (!startTime) startTime = timestamp
+        const progress = Math.min((timestamp - startTime) / duration, 1)
+        setCount(Math.floor(progress * target))
+        if (progress < 1) {
+          animationRef.current = requestAnimationFrame(animate)
         }
-      },
-      { threshold: 0.5 }
-    )
+      }
+      animationRef.current = requestAnimationFrame(animate)
+    } else {
+      // Reset when out of view
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
+      setCount(0)
+    }
 
-    const element = document.getElementById(`counter-${target}`)
-    if (element) observer.observe(element)
-
-    return () => observer.disconnect()
-  }, [target, duration, hasAnimated])
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
+    }
+  }, [target, duration, isVisible])
 
   return (
-    <span id={`counter-${target}`} className="animated-counter">
+    <span ref={ref} className="animated-counter">
       {prefix}{count}{suffix}
     </span>
   )
@@ -235,6 +282,75 @@ export function ScrollProgress() {
   return (
     <div className="scroll-progress">
       <div className="scroll-progress-bar" style={{ width: `${progress}%` }} />
+    </div>
+  )
+}
+
+// ScrollReveal Wrapper Component - RE-TRIGGERS ON SCROLL
+export function ScrollReveal({ 
+  children, 
+  className = '', 
+  animation = 'fadeInUp', 
+  delay = 0, 
+  duration = 600,
+  threshold = 0.1 
+}) {
+  const { ref, isVisible } = useInView({ threshold })
+
+  const animations = {
+    fadeInUp: { from: { opacity: 0, transform: 'translateY(40px)' }, to: { opacity: 1, transform: 'translateY(0)' } },
+    fadeInDown: { from: { opacity: 0, transform: 'translateY(-40px)' }, to: { opacity: 1, transform: 'translateY(0)' } },
+    fadeInLeft: { from: { opacity: 0, transform: 'translateX(-40px)' }, to: { opacity: 1, transform: 'translateX(0)' } },
+    fadeInRight: { from: { opacity: 0, transform: 'translateX(40px)' }, to: { opacity: 1, transform: 'translateX(0)' } },
+    fadeIn: { from: { opacity: 0 }, to: { opacity: 1 } },
+    scaleIn: { from: { opacity: 0, transform: 'scale(0.8)' }, to: { opacity: 1, transform: 'scale(1)' } },
+    rotateIn: { from: { opacity: 0, transform: 'rotate(-10deg) scale(0.9)' }, to: { opacity: 1, transform: 'rotate(0) scale(1)' } },
+    flipIn: { from: { opacity: 0, transform: 'perspective(600px) rotateX(-90deg)' }, to: { opacity: 1, transform: 'perspective(600px) rotateX(0)' } },
+    slideInUp: { from: { opacity: 0, transform: 'translateY(100px)' }, to: { opacity: 1, transform: 'translateY(0)' } },
+    zoomIn: { from: { opacity: 0, transform: 'scale(0.5)' }, to: { opacity: 1, transform: 'scale(1)' } },
+  }
+
+  const anim = animations[animation] || animations.fadeInUp
+  const currentStyle = isVisible ? anim.to : anim.from
+
+  return (
+    <div
+      ref={ref}
+      className={`scroll-reveal ${className} ${isVisible ? 'revealed' : ''}`}
+      style={{
+        ...currentStyle,
+        transition: `all ${duration}ms cubic-bezier(0.4, 0, 0.2, 1) ${delay}ms`,
+        willChange: 'transform, opacity'
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
+// Stagger Children Animation - RE-TRIGGERS ON SCROLL
+export function StaggerChildren({ children, className = '', staggerDelay = 100, animation = 'fadeInUp' }) {
+  const { ref, isVisible } = useInView({ threshold: 0.1 })
+  const [key, setKey] = useState(0)
+
+  useEffect(() => {
+    if (isVisible) {
+      setKey(prev => prev + 1)
+    }
+  }, [isVisible])
+
+  return (
+    <div ref={ref} className={`stagger-container ${className}`}>
+      {React.Children.map(children, (child, index) => (
+        <ScrollReveal 
+          key={`${key}-${index}`}
+          animation={animation} 
+          delay={isVisible ? index * staggerDelay : 0}
+          duration={500}
+        >
+          {child}
+        </ScrollReveal>
+      ))}
     </div>
   )
 }
