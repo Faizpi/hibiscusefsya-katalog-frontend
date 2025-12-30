@@ -433,20 +433,24 @@ function Home() {
             </div>
             <div className="inspiration-grid">
               {data.inspirations.map((item, index) => {
-                // Map slug to image
-                const getInspirationImage = (slug) => {
-                  switch(slug) {
+                // Use image_url from API, fallback to static images
+                const getInspirationImage = (item) => {
+                  if (item.image_url) {
+                    return item.image_url
+                  }
+                  // Fallback to static images based on slug
+                  switch(item.slug) {
                     case 'tips-mengatasi-bau-badan':
-                      return 'tips1.jpg'
+                      return `${import.meta.env.BASE_URL}tips1.jpg`
                     case 'manfaat-bedak-tabur':
-                      return 'tips2.jpg'
+                      return `${import.meta.env.BASE_URL}tips2.jpg`
                     case 'cara-memilih-deodorant':
-                      return 'tips4.webp'
+                      return `${import.meta.env.BASE_URL}tips4.webp`
                     default:
-                      return 'tips1.jpg'
+                      return `${import.meta.env.BASE_URL}tips1.jpg`
                   }
                 }
-                const imageSrc = `${import.meta.env.BASE_URL}${getInspirationImage(item.slug)}`
+                const imageSrc = getInspirationImage(item)
                 
                 return (
                   <ScrollReveal 
