@@ -257,28 +257,55 @@
 }
 
 .category-card {
-  background: #ffffff;
+  background: var(--primary);
   padding: var(--spacing-xl);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   text-align: center;
   transition: all var(--transition-normal);
   text-decoration: none;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.2);
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  min-height: 160px;
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 50%;
+  display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.category-card::after {
+  content: '↗';
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .category-card:hover {
-  background: #ffffff;
+  background: var(--primary-dark);
   transform: translateY(-8px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 16px 40px rgba(220, 38, 38, 0.3);
 }
 
 .category-icon {
-  width: 64px;
-  height: 64px;
-  margin-bottom: var(--spacing-md);
+  width: 48px;
+  height: 48px;
+  margin-bottom: auto;
+  padding-bottom: var(--spacing-lg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -287,17 +314,20 @@
 .category-icon svg {
   width: 100%;
   height: 100%;
+  stroke: white;
 }
 
 .category-card h3 {
   font-size: 1rem;
-  margin-bottom: var(--spacing-xs);
-  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 0;
+  color: white;
+  text-align: left;
+  line-height: 1.3;
 }
 
 .category-count {
-  font-size: 0.875rem;
-  color: var(--gray);
+  display: none;
 }
 
 /* Featured Section */
@@ -327,8 +357,14 @@
 }
 
 .benefit-icon {
-  font-size: 2.5rem;
+  width: 48px;
+  height: 48px;
   margin-bottom: var(--spacing-md);
+}
+
+.benefit-icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 .benefit-card h4 {
@@ -480,8 +516,10 @@
 .feature-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   transition: transform 0.5s ease;
+  background: #f8f9fa;
 }
 
 .about-feature:hover .feature-image img {

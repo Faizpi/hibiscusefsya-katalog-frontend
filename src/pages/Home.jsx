@@ -200,13 +200,13 @@ function Home() {
         {/* Decorative floating elements */}
         <div className="hero-decorations">
           <FloatingElement amplitude={20} duration={5}>
-            <span className="deco-flower deco-1">✨</span>
+            <span className="deco-flower deco-1"></span>
           </FloatingElement>
           <FloatingElement amplitude={15} duration={6}>
-            <span className="deco-flower deco-2">💫</span>
+            <span className="deco-flower deco-2"></span>
           </FloatingElement>
           <FloatingElement amplitude={25} duration={4}>
-            <span className="deco-flower deco-3">🌟</span>
+            <span className="deco-flower deco-3"></span>
           </FloatingElement>
         </div>
       </section>
@@ -224,106 +224,68 @@ function Home() {
           </div>
           <div className="categories-grid">
             {data?.categories?.map((category, index) => {
-              // SVG Icons for each category
+              // Clean outline icons like AZKO style
               const getCategoryIcon = (slug) => {
                 switch(slug) {
                   case 'deodorant-roll-on':
                     return (
-                      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="20" y="8" width="24" height="48" rx="6" fill="url(#gradient1)" />
-                        <rect x="22" y="10" width="20" height="12" rx="4" fill="#fff" fillOpacity="0.3" />
-                        <circle cx="32" cy="52" r="4" fill="#fff" fillOpacity="0.5" />
-                        <ellipse cx="32" cy="6" rx="6" ry="2" fill="url(#gradient1)" />
-                        <defs>
-                          <linearGradient id="gradient1" x1="20" y1="8" x2="44" y2="56" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#E91E63" />
-                            <stop offset="1" stopColor="#AD1457" />
-                          </linearGradient>
-                        </defs>
+                      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="16" y="8" width="16" height="32" rx="4"/>
+                        <circle cx="24" cy="36" r="3"/>
+                        <rect x="18" y="12" width="12" height="8" rx="2"/>
+                        <ellipse cx="24" cy="6" rx="4" ry="2"/>
                       </svg>
                     );
                   case 'po-powder':
                     return (
-                      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="32" cy="36" r="20" fill="url(#gradient2)" />
-                        <ellipse cx="32" cy="18" rx="14" ry="4" fill="url(#gradient2)" />
-                        <rect x="18" y="18" width="28" height="18" fill="url(#gradient2)" />
-                        <circle cx="32" cy="36" r="12" fill="#fff" fillOpacity="0.2" />
-                        <path d="M26 32 L32 28 L38 32 L32 36 Z" fill="#fff" fillOpacity="0.4" />
-                        <defs>
-                          <linearGradient id="gradient2" x1="12" y1="14" x2="52" y2="56" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#9C27B0" />
-                            <stop offset="1" stopColor="#6A1B9A" />
-                          </linearGradient>
-                        </defs>
+                      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="24" cy="28" r="14"/>
+                        <ellipse cx="24" cy="16" rx="10" ry="4"/>
+                        <line x1="14" y1="16" x2="14" y2="28"/>
+                        <line x1="34" y1="16" x2="34" y2="28"/>
+                        <circle cx="24" cy="28" r="6" strokeDasharray="2 2"/>
                       </svg>
                     );
                   case 'bedak-biang-keringat':
                     return (
-                      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="16" y="20" width="32" height="36" rx="4" fill="url(#gradient3)" />
-                        <rect x="20" y="8" width="24" height="16" rx="2" fill="url(#gradient3)" />
-                        <circle cx="32" cy="12" r="4" fill="#fff" fillOpacity="0.5" />
-                        <rect x="20" y="28" width="24" height="20" rx="2" fill="#fff" fillOpacity="0.2" />
-                        <circle cx="26" cy="34" r="2" fill="#fff" fillOpacity="0.5" />
-                        <circle cx="32" cy="38" r="2" fill="#fff" fillOpacity="0.5" />
-                        <circle cx="38" cy="34" r="2" fill="#fff" fillOpacity="0.5" />
-                        <circle cx="29" cy="42" r="2" fill="#fff" fillOpacity="0.5" />
-                        <circle cx="35" cy="42" r="2" fill="#fff" fillOpacity="0.5" />
-                        <defs>
-                          <linearGradient id="gradient3" x1="16" y1="8" x2="48" y2="56" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#00BCD4" />
-                            <stop offset="1" stopColor="#00838F" />
-                          </linearGradient>
-                        </defs>
+                      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <rect x="14" y="16" width="20" height="26" rx="3"/>
+                        <rect x="18" y="8" width="12" height="10" rx="2"/>
+                        <circle cx="24" cy="12" r="2"/>
+                        <circle cx="20" cy="28" r="1.5"/>
+                        <circle cx="28" cy="28" r="1.5"/>
+                        <circle cx="24" cy="32" r="1.5"/>
+                        <circle cx="20" cy="36" r="1.5"/>
+                        <circle cx="28" cy="36" r="1.5"/>
                       </svg>
                     );
                   case 'body-mist':
                     return (
-                      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M24 20 L24 52 Q24 56 28 56 L36 56 Q40 56 40 52 L40 20 Z" fill="url(#gradient4)" />
-                        <rect x="26" y="8" width="12" height="12" rx="2" fill="#666" />
-                        <rect x="30" y="4" width="4" height="6" rx="1" fill="#888" />
-                        <ellipse cx="32" cy="38" rx="6" ry="10" fill="#fff" fillOpacity="0.2" />
-                        <circle cx="20" cy="12" r="2" fill="#E1BEE7" />
-                        <circle cx="16" cy="18" r="1.5" fill="#E1BEE7" />
-                        <circle cx="44" cy="14" r="2" fill="#E1BEE7" />
-                        <circle cx="48" cy="20" r="1.5" fill="#E1BEE7" />
-                        <defs>
-                          <linearGradient id="gradient4" x1="24" y1="20" x2="40" y2="56" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#E91E63" />
-                            <stop offset="1" stopColor="#C2185B" />
-                          </linearGradient>
-                        </defs>
+                      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18 16v24a4 4 0 004 4h4a4 4 0 004-4V16"/>
+                        <rect x="20" y="8" width="8" height="8" rx="1"/>
+                        <line x1="24" y1="4" x2="24" y2="8"/>
+                        <path d="M12 10c-2-2-2-6 0-8" strokeWidth="1"/>
+                        <path d="M36 10c2-2 2-6 0-8" strokeWidth="1"/>
+                        <path d="M10 16c-2-2-2-6 0-8" strokeWidth="1"/>
+                        <path d="M38 16c2-2 2-6 0-8" strokeWidth="1"/>
                       </svg>
                     );
                   case 'body-lotion':
                     return (
-                      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M22 24 L22 52 Q22 56 26 56 L38 56 Q42 56 42 52 L42 24 Q42 20 38 20 L26 20 Q22 20 22 24 Z" fill="url(#gradient5)" />
-                        <rect x="28" y="10" width="8" height="10" rx="2" fill="#FFF3E0" stroke="#FF9800" strokeWidth="2" />
-                        <rect x="26" y="28" width="12" height="16" rx="2" fill="#fff" fillOpacity="0.3" />
-                        <path d="M30 32 Q32 36 34 32" stroke="#fff" strokeWidth="2" strokeLinecap="round" fill="none" />
-                        <circle cx="32" cy="40" r="3" fill="#fff" fillOpacity="0.4" />
-                        <defs>
-                          <linearGradient id="gradient5" x1="22" y1="20" x2="42" y2="56" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#FF9800" />
-                            <stop offset="1" stopColor="#F57C00" />
-                          </linearGradient>
-                        </defs>
+                      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M16 18v22a4 4 0 004 4h8a4 4 0 004-4V18"/>
+                        <rect x="20" y="8" width="8" height="10" rx="2"/>
+                        <path d="M16 18h16"/>
+                        <path d="M20 28c2 3 6 3 8 0"/>
+                        <circle cx="24" cy="36" r="2"/>
                       </svg>
                     );
                   default:
                     return (
-                      <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="32" cy="32" r="24" fill="url(#gradientDefault)" />
-                        <path d="M32 16 L36 28 L48 28 L38 36 L42 48 L32 40 L22 48 L26 36 L16 28 L28 28 Z" fill="#fff" fillOpacity="0.5" />
-                        <defs>
-                          <linearGradient id="gradientDefault" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-                            <stop stopColor="#E91E63" />
-                            <stop offset="1" stopColor="#AD1457" />
-                          </linearGradient>
-                        </defs>
+                      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="24" cy="24" r="16"/>
+                        <path d="M24 12l3 8h8l-6 5 2 8-7-5-7 5 2-8-6-5h8z"/>
                       </svg>
                     );
                 }
@@ -392,10 +354,52 @@ function Home() {
         <div className="container">
           <div className="benefits-grid">
             {[
-              { icon: '✅', title: 'Halal & Aman', desc: 'Produk bersertifikat halal MUI dan aman untuk kulit' },
-              { icon: '💪', title: 'Tahan Lama', desc: 'Perlindungan hingga 24 jam dari bau badan' },
-              { icon: '🌿', title: 'Bahan Berkualitas', desc: 'Terbuat dari tawas, talc, dan parfum pilihan' },
-              { icon: '💰', title: 'Harga Terjangkau', desc: 'Kualitas premium dengan harga ekonomis' }
+              { 
+                icon: (
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="8" y="8" width="32" height="32" rx="8" fill="#22c55e" stroke="none"/>
+                    <path d="M16 24l6 6 12-12" stroke="white" strokeWidth="3"/>
+                  </svg>
+                ), 
+                title: 'Halal & Aman', 
+                desc: 'Produk bersertifikat halal MUI dan aman untuk kulit' 
+              },
+              { 
+                icon: (
+                  <svg viewBox="0 0 48 48" fill="none">
+                    <circle cx="24" cy="18" r="8" fill="#f59e0b"/>
+                    <ellipse cx="24" cy="20" rx="6" ry="4" fill="#fbbf24"/>
+                    <path d="M18 28c-2 4-1 10 6 12 7-2 8-8 6-12" fill="#f59e0b"/>
+                    <circle cx="20" cy="16" r="2" fill="#fef3c7"/>
+                  </svg>
+                ), 
+                title: 'Tahan Lama', 
+                desc: 'Perlindungan hingga 24 jam dari bau badan' 
+              },
+              { 
+                icon: (
+                  <svg viewBox="0 0 48 48" fill="none">
+                    <path d="M24 8c-2 8-8 12-8 20 0 6 4 12 8 12s8-6 8-12c0-8-6-12-8-20z" fill="#22c55e"/>
+                    <path d="M20 28c0-4 4-6 4-12" stroke="#16a34a" strokeWidth="2" fill="none"/>
+                    <circle cx="22" cy="32" r="2" fill="#bbf7d0"/>
+                  </svg>
+                ), 
+                title: 'Bahan Berkualitas', 
+                desc: 'Dari bahan premium berkualitas pilihan' 
+              },
+              { 
+                icon: (
+                  <svg viewBox="0 0 48 48" fill="none">
+                    <circle cx="24" cy="28" r="14" fill="#f59e0b"/>
+                    <circle cx="24" cy="28" r="10" fill="#fbbf24"/>
+                    <text x="24" y="33" textAnchor="middle" fill="#92400e" fontSize="14" fontWeight="bold">$</text>
+                    <path d="M20 10h8l-2 6h-4l-2-6z" fill="#a16207"/>
+                    <rect x="22" y="6" width="4" height="6" fill="#ca8a04"/>
+                  </svg>
+                ), 
+                title: 'Harga Terjangkau', 
+                desc: 'Kualitas premium dengan harga ekonomis' 
+              }
             ].map((benefit, index) => (
               <ScrollReveal 
                 key={index} 
@@ -415,16 +419,16 @@ function Home() {
         </div>
       </section>
 
-      {/* Inspiration Section */}
+      {/* Tips & Artikel Section */}
       {data?.inspirations?.length > 0 && (
-        <section className="section inspiration-section" id="inspirasi" ref={inspirationRef}>
+        <section className="section inspiration-section" id="artikel" ref={inspirationRef}>
           <div className="container">
             <div className="section-header">
               <ScrollReveal animation="fadeInUp">
-                <h2><LetterReveal text="Inspirasi" delay={50} /></h2>
+                <h2><LetterReveal text="Tips & Artikel" delay={50} /></h2>
               </ScrollReveal>
               <ScrollReveal animation="fadeInUp" delay={200}>
-                <p>Tips dan ide untuk Anda</p>
+                <p>Panduan dan informasi seputar perawatan tubuh</p>
               </ScrollReveal>
             </div>
             <div className="inspiration-grid">
