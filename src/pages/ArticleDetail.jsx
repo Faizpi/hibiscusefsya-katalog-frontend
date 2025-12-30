@@ -119,11 +119,13 @@ function ArticleDetail() {
         const found = inspirations.find(item => item.slug === slug)
         
         if (found) {
-          // Merge with dummy data for full content
+          // Merge with dummy data for full content if needed
           const dummyMatch = dummyArticles.find(d => d.slug === slug)
           setArticle({
             ...found,
-            image: dummyMatch?.image || 'tips1.jpg',
+            // Use image_url from API, fallback to static
+            image_url: found.image_url || null,
+            image: found.image_url || dummyMatch?.image || 'tips1.jpg',
             fullContent: dummyMatch?.fullContent || `<p>${found.content}</p>`
           })
           setRelatedArticles(inspirations.filter(item => item.slug !== slug).slice(0, 2))
@@ -154,9 +156,13 @@ function ArticleDetail() {
     setLoading(false)
   }
 
-  // Helper to get image path
-  const getImagePath = (imageName) => {
-    return `${import.meta.env.BASE_URL}${imageName}`
+  // Helper to get image path - use image_url if available
+  const getImagePath = (article) => {
+    if (article.image_url) {
+      return article.image_url
+    }
+    // Fallback to static path
+    return `${import.meta.env.BASE_URL}${article.image || 'tips1.jpg'}`
   }
 
   if (loading) {
@@ -192,9 +198,9 @@ function ArticleDetail() {
       <section className="article-hero">
         <div className="article-hero-image">
           <img 
-            src={getImagePath(article.image)} 
+            src={getImagePath(article)} 
             alt={article.title}
-            onError={(e) => { e.target.src = getImagePath('logo.png') }}
+            onError={(e) => { e.target.src = `${import.meta.env.BASE_URL}logo.png` }}
           />
           <div className="article-hero-overlay"></div>
         </div>
@@ -248,17 +254,21 @@ function ArticleDetail() {
             </ScrollReveal>
             <div className="related-articles-grid">
               {relatedArticles.map((item, index) => {
-                const dummyMatch = dummyArticles.find(d => d.slug === item.slug)
-                const itemImage = dummyMatch?.image || 'tips1.jpg'
+                // Use image_url from API, fallback to static
+                const getRelatedImage = (item) => {
+                  if (item.image_url) return item.image_url
+                  const dummyMatch = dummyArticles.find(d => d.slug === item.slug)
+                  return `${import.meta.env.BASE_URL}${dummyMatch?.image || 'tips1.jpg'}`
+                }
                 
                 return (
                   <ScrollReveal key={item.id} animation="fadeInUp" delay={index * 150}>
                     <Link to={`/artikel/${item.slug}`} className="related-article-card hover-lift">
                       <div className="related-article-image">
                         <img 
-                          src={getImagePath(itemImage)} 
+                          src={getRelatedImage(item)} 
                           alt={item.title}
-                          onError={(e) => { e.target.src = getImagePath('logo.png') }}
+                          onError={(e) => { e.target.src = `${import.meta.env.BASE_URL}logo.png` }}
                         />
                       </div>
                       <div className="related-article-content">
