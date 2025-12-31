@@ -70,3 +70,27 @@ export const searchProducts = async (query) => {
     throw error;
   }
 };
+
+// Get articles list
+export const getArticles = async (params = {}) => {
+  try {
+    const response = await axios.get(API_ENDPOINTS.articles, { params });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching articles:', error);
+    throw error;
+  }
+};
+
+// Get single article by slug
+export const getArticleBySlug = async (slug) => {
+  try {
+    const response = await axios.get(API_ENDPOINTS.articles, {
+      params: { action: 'detail', slug }
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching article:', error);
+    throw error;
+  }
+};
