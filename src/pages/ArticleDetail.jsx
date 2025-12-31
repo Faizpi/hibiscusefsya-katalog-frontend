@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { getHomepageData } from '../services/api'
+import { getArticleBySlug, getHomepageData } from '../services/api'
 import { 
   LetterReveal, 
   WordReveal,
@@ -113,39 +113,46 @@ function ArticleDetail() {
   const fetchArticle = async () => {
     setLoading(true)
     try {
-      const response = await getHomepageData()
-      if (response && response.data && response.data.inspirations) {
-        const inspirations = response.data.inspirations
-        const found = inspirations.find(item => item.slug === slug)
-        
-        if (found) {
-          // Merge with dummy data for full content if needed
-          const dummyMatch = dummyArticles.find(d => d.slug === slug)
-          setArticle({
-            ...found,
-            // Use image_url from API, fallback to static
-            image_url: found.image_url || null,
-            image: found.image_url || dummyMatch?.image || 'tips1.jpg',
-            fullContent: dummyMatch?.fullContent || `<p>${found.content}</p>`
-          })
-          setRelatedArticles(inspirations.filter(item => item.slug !== slug).slice(0, 2))
-        } else {
-          // Use dummy data
-          const dummyMatch = dummyArticles.find(d => d.slug === slug)
-          if (dummyMatch) {
-            setArticle(dummyMatch)
-            setRelatedArticles(dummyArticles.filter(d => d.slug !== slug).slice(0, 2))
-          }
+      // Try to get article from dedicated API first
+      const response = await getArticleBySlug(slug)
+      if (response && response.data) {
+        const articleData = response.data
+        setArticle({
+          ...articleData,
+          // Use content as fullContent if no fullContent
+          fullContent: articleData.fullContent || `<p>${articleData.content}</p>`
+        })
+        // Set related articles from API
+        if (articleData.related_articles) {
+          setRelatedArticles(articleData.related_articles)
         }
       } else {
-        // Use dummy data
-        const dummyMatch = dummyArticles.find(d => d.slug === slug)
-        if (dummyMatch) {
-          setArticle(dummyMatch)
-          setRelatedArticles(dummyArticles.filter(d => d.slug !== slug).slice(0, 2))
+        // Fallback to homepage data
+        const homepageResponse = await getHomepageData()
+        if (homepageResponse && homepageResponse.data && homepageResponse.data.inspirations) {
+          const inspirations = homepageResponse.data.inspirations
+          const found = inspirations.find(item => item.slug === slug)
+          
+          if (found) {
+            const dummyMatch = dummyArticles.find(d => d.slug === slug)
+            setArticle({
+              ...found,
+              image_url: found.image_url || null,
+              fullContent: dummyMatch?.fullContent || `<p>${found.content}</p>`
+            })
+            setRelatedArticles(inspirations.filter(item => item.slug !== slug).slice(0, 2))
+          } else {
+            // Use dummy
+            const dummyMatch = dummyArticles.find(d => d.slug === slug)
+            if (dummyMatch) {
+              setArticle(dummyMatch)
+              setRelatedArticles(dummyArticles.filter(d => d.slug !== slug).slice(0, 2))
+            }
+          }
         }
       }
     } catch (err) {
+      console.error('Error fetching article:', err)
       // Fallback to dummy
       const dummyMatch = dummyArticles.find(d => d.slug === slug)
       if (dummyMatch) {
@@ -216,7 +223,7 @@ function ArticleDetail() {
               <h1><LetterReveal text={article.title} delay={30} /></h1>
             </ScrollReveal>
             <ScrollReveal animation="fadeInUp" delay={200}>
-              <p className="article-excerpt">{article.content}</p>
+              <p className="article-excerpt">{article.excerpt || article.preview_text || article.content}</p>
             </ScrollReveal>
           </div>
         </div>
