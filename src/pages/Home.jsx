@@ -294,7 +294,7 @@ function Home() {
               return (
                 <ScrollReveal 
                   key={category.id} 
-                  animation="fadeInUp" 
+                  animation={['fadeInUp', 'fadeInLeft', 'fadeInRight', 'zoomIn', 'fadeInUp'][index % 5]} 
                   delay={index * 100}
                 >
                   <Link 
@@ -331,7 +331,7 @@ function Home() {
             {data?.featured_products?.map((product, index) => (
               <ScrollReveal 
                 key={product.id} 
-                animation="fadeInUp" 
+                animation={['fadeInLeft', 'fadeInUp', 'fadeInUp', 'fadeInRight'][index % 4]} 
                 delay={index * 100}
                 style={{ display: 'flex', flexDirection: 'column' }}
               >
@@ -355,55 +355,29 @@ function Home() {
           <div className="benefits-grid">
             {[
               { 
-                icon: (
-                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="8" y="8" width="32" height="32" rx="8" fill="#22c55e" stroke="none"/>
-                    <path d="M16 24l6 6 12-12" stroke="white" strokeWidth="3"/>
-                  </svg>
-                ), 
+                icon: '✅', 
                 title: 'Halal & Aman', 
                 desc: 'Produk bersertifikat halal MUI dan aman untuk kulit' 
               },
               { 
-                icon: (
-                  <svg viewBox="0 0 48 48" fill="none">
-                    <circle cx="24" cy="18" r="8" fill="#f59e0b"/>
-                    <ellipse cx="24" cy="20" rx="6" ry="4" fill="#fbbf24"/>
-                    <path d="M18 28c-2 4-1 10 6 12 7-2 8-8 6-12" fill="#f59e0b"/>
-                    <circle cx="20" cy="16" r="2" fill="#fef3c7"/>
-                  </svg>
-                ), 
+                icon: '⏱️', 
                 title: 'Tahan Lama', 
                 desc: 'Perlindungan hingga 24 jam dari bau badan' 
               },
               { 
-                icon: (
-                  <svg viewBox="0 0 48 48" fill="none">
-                    <path d="M24 8c-2 8-8 12-8 20 0 6 4 12 8 12s8-6 8-12c0-8-6-12-8-20z" fill="#22c55e"/>
-                    <path d="M20 28c0-4 4-6 4-12" stroke="#16a34a" strokeWidth="2" fill="none"/>
-                    <circle cx="22" cy="32" r="2" fill="#bbf7d0"/>
-                  </svg>
-                ), 
+                icon: '🌿', 
                 title: 'Bahan Berkualitas', 
                 desc: 'Dari bahan premium berkualitas pilihan' 
               },
               { 
-                icon: (
-                  <svg viewBox="0 0 48 48" fill="none">
-                    <circle cx="24" cy="28" r="14" fill="#f59e0b"/>
-                    <circle cx="24" cy="28" r="10" fill="#fbbf24"/>
-                    <text x="24" y="33" textAnchor="middle" fill="#92400e" fontSize="14" fontWeight="bold">$</text>
-                    <path d="M20 10h8l-2 6h-4l-2-6z" fill="#a16207"/>
-                    <rect x="22" y="6" width="4" height="6" fill="#ca8a04"/>
-                  </svg>
-                ), 
+                icon: '💰', 
                 title: 'Harga Terjangkau', 
                 desc: 'Kualitas premium dengan harga ekonomis' 
               }
             ].map((benefit, index) => (
               <ScrollReveal 
                 key={index} 
-                animation="flipIn" 
+                animation={['fadeInLeft', 'fadeInUp', 'fadeInUp', 'fadeInRight'][index % 4]} 
                 delay={index * 100}
               >
                 <div className="benefit-card hover-lift">
@@ -455,7 +429,7 @@ function Home() {
                 return (
                   <ScrollReveal 
                     key={item.id} 
-                    animation="fadeInLeft" 
+                    animation={['fadeInLeft', 'fadeInUp', 'fadeInRight'][index % 3]} 
                     delay={index * 150}
                   >
                     <Link to={`/artikel/${item.slug}`} className="inspiration-card hover-lift">
@@ -468,7 +442,7 @@ function Home() {
                       </div>
                       <div className="inspiration-content">
                         <h4>{item.title}</h4>
-                        <p>{item.content}</p>
+                        <p>{item.preview_text || item.excerpt || item.content}</p>
                         <span className="inspiration-link">
                           Baca Selengkapnya
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -502,18 +476,29 @@ function Home() {
             </ScrollReveal>
             <div className="about-features">
               {[
-                { image: 'about1.jpg', text: 'Produksi Indonesia' },
-                { image: 'about4.avif', text: 'Bersertifikat Halal' },
-                { image: 'about3.jpg', text: 'BPOM Approved' }
+                { 
+                  icon: (
+                    <img src={`${import.meta.env.BASE_URL}about1.jpg`} alt="Produksi Indonesia" />
+                  ), 
+                  text: 'Produksi Indonesia' 
+                },
+                { 
+                  icon: (
+                    <img src={`${import.meta.env.BASE_URL}about2.svg`} alt="Sertifikat Halal" className="halal-icon" />
+                  ), 
+                  text: 'Bersertifikat Halal' 
+                },
+                { 
+                  icon: (
+                    <img src={`${import.meta.env.BASE_URL}about3.svg`} alt="BPOM" />
+                  ), 
+                  text: 'BPOM Approved' 
+                }
               ].map((feature, index) => (
-                <ScrollReveal key={index} animation="fadeInRight" delay={index * 150}>
+                <ScrollReveal key={index} animation={['fadeInUp', 'zoomIn', 'fadeInRight'][index % 3]} delay={index * 150}>
                   <div className="about-feature hover-lift">
-                    <div className="feature-image">
-                      <img 
-                        src={`${import.meta.env.BASE_URL}${feature.image}`} 
-                        alt={feature.text}
-                        onError={(e) => { e.target.src = logoSrc }}
-                      />
+                    <div className="feature-icon">
+                      {feature.icon}
                     </div>
                     <span className="feature-text">{feature.text}</span>
                   </div>

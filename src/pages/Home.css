@@ -2,6 +2,11 @@
    Home Page Styles
    ======================================== */
 
+/* Fix horizontal overflow */
+.home {
+  overflow-x: hidden;
+}
+
 /* Hero Section */
 .hero {
   position: relative;
@@ -276,9 +281,9 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  width: 32px;
-  height: 32px;
-  background: rgba(0, 0, 0, 0.15);
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.25);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -288,11 +293,30 @@
 .category-card::after {
   content: '↗';
   position: absolute;
-  top: 18px;
-  right: 20px;
+  top: 12px;
+  right: 12px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.category-card:hover::after {
+  animation: arrowBounce 0.6s ease infinite;
+}
+
+@keyframes arrowBounce {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(3px, -3px);
+  }
 }
 
 .category-card:hover {
@@ -354,12 +378,19 @@
 .benefit-card {
   text-align: center;
   padding: var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .benefit-icon {
-  width: 48px;
-  height: 48px;
+  width: 80px;
+  height: 80px;
   margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.5rem;
 }
 
 .benefit-icon svg {
@@ -469,7 +500,7 @@
 
 .about-content {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
+  grid-template-columns: 1fr 1.5fr;
   gap: 4rem;
   align-items: center;
 }
@@ -487,19 +518,23 @@
 }
 
 .about-features {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
   gap: 1.5rem;
+  justify-content: center;
 }
 
 .about-feature {
   display: flex;
   flex-direction: column;
+  align-items: center;
   background: var(--white);
-  border-radius: var(--radius-lg);
+  border-radius: 16px;
   box-shadow: var(--shadow-sm);
-  overflow: hidden;
+  padding: 1.5rem 1.25rem;
+  width: 140px;
+  height: 180px;
   transition: all 0.3s ease;
+  border: 1px solid rgba(0,0,0,0.05);
 }
 
 .about-feature:hover {
@@ -507,6 +542,42 @@
   transform: translateY(-4px);
 }
 
+.feature-icon {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.feature-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.feature-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.feature-icon img.halal-icon {
+  width: 120%;
+  height: 120%;
+  margin: -10%;
+}
+
+.feature-text {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-align: center;
+  color: var(--dark);
+  line-height: 1.3;
+}
+
+/* Legacy support for image-based features */
 .feature-image {
   width: 100%;
   height: 140px;
@@ -526,14 +597,6 @@
   transform: scale(1.05);
 }
 
-.feature-text {
-  padding: 1rem;
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-align: center;
-  color: var(--dark);
-}
-
 @media (max-width: 992px) {
   .about-content {
     grid-template-columns: 1fr;
@@ -541,7 +604,7 @@
   }
   
   .about-features {
-    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
   }
 }
 
@@ -551,34 +614,50 @@
   }
   
   .about-features {
-    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
   }
   
-  .feature-image {
-    height: 100px;
+  .about-feature {
+    width: 120px;
+    height: 160px;
+    padding: 1rem;
+  }
+  
+  .feature-icon {
+    width: 60px;
+    height: 60px;
   }
   
   .feature-text {
-    font-size: 0.8rem;
-    padding: 0.75rem 0.5rem;
+    font-size: 0.75rem;
   }
 }
 
 @media (max-width: 480px) {
   .about-features {
-    grid-template-columns: 1fr;
-    max-width: 280px;
-    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
   
-  .feature-image {
-    height: 160px;
+  .about-feature {
+    width: 200px;
+    height: auto;
+    flex-direction: row;
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+  }
+  
+  .feature-icon {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 0;
+    flex-shrink: 0;
   }
   
   .feature-text {
     font-size: 0.9rem;
-    padding: 1rem;
+    text-align: left;
   }
 }
 
