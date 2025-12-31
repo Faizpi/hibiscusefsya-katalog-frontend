@@ -103,3 +103,74 @@
     font-size: 1rem;
   }
 }
+
+/* Marketplace Links */
+.product-marketplace-links {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0 var(--spacing-lg) var(--spacing-lg);
+  margin-top: -0.5rem;
+}
+
+.marketplace-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.marketplace-btn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.shopee-btn {
+  background: #fff5f3;
+  color: #ee4d2d;
+  border: 2px solid #ee4d2d;
+}
+
+.shopee-btn:hover {
+  background: #fff5f3;
+  color: #ee4d2d;
+  transform: translateY(-2px);
+}
+
+.tokopedia-btn {
+  background: #42b549;
+  color: white;
+}
+
+.tokopedia-btn:hover {
+  background: #319537;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 576px) {
+  .product-marketplace-links {
+    padding: 0 var(--spacing-md) var(--spacing-md);
+    gap: 0.375rem;
+  }
+  
+  .marketplace-btn {
+    padding: 0.375rem 0.5rem;
+    font-size: 0.65rem;
+  }
+  
+  .marketplace-btn img {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .marketplace-btn span {
+    display: none;
+  }
+}
