@@ -132,6 +132,56 @@
   margin-bottom: var(--spacing-xl);
 }
 
+/* Marketplace Buttons */
+.product-marketplace-buttons {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.btn-marketplace {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-marketplace img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.btn-shopee {
+  background: #fff5f3;
+  color: #ee4d2d;
+  border: 2px solid #ee4d2d;
+}
+
+.btn-shopee:hover {
+  background: #fff5f3;
+  color: #ee4d2d;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(238, 77, 45, 0.3);
+}
+
+.btn-tokopedia {
+  background: #42b549;
+  color: white;
+}
+
+.btn-tokopedia:hover {
+  background: #319537;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(66, 181, 73, 0.3);
+}
+
 .btn-whatsapp {
   background: #25D366;
   display: flex;

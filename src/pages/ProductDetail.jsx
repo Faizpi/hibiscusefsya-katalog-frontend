@@ -10,6 +10,10 @@ function ProductDetail() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
+  // Logo paths
+  const shopeeLogoSrc = `${import.meta.env.BASE_URL}Shopee_logo.svg`
+  const tokopediaLogoSrc = `${import.meta.env.BASE_URL}Tokopedia_Mascot.png`
+
   useEffect(() => {
     fetchProduct()
   }, [slug])
@@ -135,6 +139,33 @@ function ProductDetail() {
 
               {/* Contact CTA */}
               <div className="product-cta">
+                {/* Marketplace Buttons */}
+                {(product.shopee_link || product.tokopedia_link) && (
+                  <div className="product-marketplace-buttons">
+                    {product.shopee_link && (
+                      <a 
+                        href={product.shopee_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-marketplace btn-shopee"
+                      >
+                        <img src={shopeeLogoSrc} alt="Shopee" />
+                        Beli di Shopee
+                      </a>
+                    )}
+                    {product.tokopedia_link && (
+                      <a 
+                        href={product.tokopedia_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-marketplace btn-tokopedia"
+                      >
+                        <img src={tokopediaLogoSrc} alt="Tokopedia" />
+                        Beli di Tokopedia
+                      </a>
+                    )}
+                  </div>
+                )}
                 <a 
                   href={`https://wa.me/6281234567890?text=Halo, saya tertarik dengan produk ${product.name} (${product.price_formatted})`}
                   target="_blank"
