@@ -24,6 +24,14 @@ function ProductDetail() {
     fetchContactSettings()
   }, [slug])
 
+  // If product has its own whatsapp number, prefer it over site settings
+  useEffect(() => {
+    if (product && product.whatsapp) {
+      const normalized = normalizeWhatsapp(product.whatsapp)
+      if (normalized) setWhatsappNumber(normalized)
+    }
+  }, [product])
+
   const fetchProduct = async () => {
     try {
       setLoading(true)
