@@ -3,7 +3,6 @@
   RewriteBase /
 
   # Redirect /admin ke api.hibiscusefsya.com
-  # Opsi A: Redirect (URL di browser akan berubah)
   RewriteRule ^admin/?$ https://api.hibiscusefsya.com/ [R=301,L]
   RewriteRule ^admin/(.*)$ https://api.hibiscusefsya.com/$1 [R=301,L]
 

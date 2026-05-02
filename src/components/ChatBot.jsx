@@ -14,8 +14,12 @@ const ChatBot = () => {
   const messagesEndRef = useRef(null)
   const inputRef = useRef(null)
 
-  // WhatsApp link for human support
-  const whatsappLink = 'https://wa.me/6289608667949?text=Halo%20Hibiscus%20Efsya%2C%20saya%20butuh%20bantuan'
+  const defaultWhatsappNumber = '6281234567890'
+  const normalizeWhatsapp = (value) => (value || '').toString().replace(/[^0-9]/g, '')
+  const whatsappNumber = normalizeWhatsapp(
+    settingsData?.contact_whatsapp || settingsData?.contact_phone || defaultWhatsappNumber
+  )
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Halo Hibiscus Efsya, saya butuh bantuan')}`
 
   // Quick suggestions
   const quickSuggestions = [
@@ -280,7 +284,7 @@ const ChatBot = () => {
     // === CONTACT ===
     if (q.match(/(kontak|contact|hubungi|telepon|telpon|hp|nomor|wa|whatsapp|email)/)) {
       return {
-        text: `📞 Hubungi Kami:\n\n📱 WhatsApp: ${settingsData?.contact_phone || '+62 812 3456 7890'}\n📧 Email: ${settingsData?.contact_email || 'info@hibiscusefsya.com'}\n📍 Lokasi: ${settingsData?.contact_address || 'Jakarta, Indonesia'}\n\nAtau klik tombol "Chat WhatsApp" untuk langsung terhubung dengan tim kami!`,
+        text: `📞 Hubungi Kami:\n\n📱 WhatsApp: ${settingsData?.contact_whatsapp || '+62 812 3456 7890'}\n📧 Email: ${settingsData?.contact_email || 'info@hibiscusefsya.com'}\n📍 Lokasi: ${settingsData?.contact_address || 'Jakarta, Indonesia'}\n\nAtau klik tombol "Chat WhatsApp" untuk langsung terhubung dengan tim kami!`,
         showSuggestions: true
       }
     }

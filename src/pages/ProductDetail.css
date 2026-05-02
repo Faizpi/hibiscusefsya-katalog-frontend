@@ -190,6 +190,12 @@
   gap: var(--spacing-sm);
 }
 
+.btn-whatsapp .whatsapp-logo {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
 .btn-whatsapp:hover {
   background: #128C7E;
 }
