@@ -1,11 +1,16 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # Redirect /admin to the API admin panel
+  RewriteRule ^admin/?$ https://api.hibiscusefsya.com/admin/ [R=301,L]
+  RewriteRule ^admin/(.*)$ https://api.hibiscusefsya.com/admin/$1 [R=301,L]
   
-  # Handle React Router - redirect all requests to index.html
+  # React SPA routing for all other routes
+  RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^ index.html [L]
+  RewriteRule . /index.html [L]
 </IfModule>
 
 # Cache static assets
